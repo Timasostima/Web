@@ -1,0 +1,222 @@
+:root {
+  --bounce: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#background-gradient {
+  background: linear-gradient(0deg,
+      rgba(9, 0, 0, 0) 0%,
+      rgba(159, 38, 0, 0.624) 91.15%);
+}
+
+#content {
+  margin: 0 5%;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+#formag-as-part {
+  margin-top: 1rem;
+  margin-bottom: 10dvh;
+}
+
+#corporate-values-enum {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  transform: translateX(-20px);
+  width: calc(100% + 40px);
+
+  /* background-color: rgba(255, 0, 0, 0.3); */
+  &::after {
+    content: "";
+    flex: 0 0 30%;
+  }
+}
+
+.value-cart {
+  width: 30%;
+  /* background-color: rgba(36, 120, 193, 0.3); */
+  height: min-content;
+  padding: 20px;
+  border-radius: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+
+  transition: background-color 500ms;
+
+  & hr {
+    width: 30%;
+    /* margin: 0.4rem auto 0.4rem auto; */
+    margin: 4% 0;
+    transition: width 500ms;
+  }
+
+  .value-cart-name {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    & img {
+      width: 10%;
+      margin-left: 1rem;
+      height: auto;
+      object-fit: contain;
+      filter: invert();
+    }
+  }
+
+  >p {
+    margin-top: 1rem;
+  }
+}
+
+.value-cart:hover {
+  background-color: var(--brown);
+
+  & hr {
+    width: 100%;
+    transition: width 500ms;
+  }
+}
+
+#management-team {
+  width: 93%;
+  margin: auto;
+  margin-top: 20dvh;
+}
+
+#manager-list {
+  width: 100%;
+  height: 40dvh;
+  /* background-color: antiquewhite; */
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  >.manager {
+    width: 17%;
+
+    display: flex;
+    flex-direction: column;
+
+    /* justify-content: space-between; */
+    /* background-color: aqua; */
+    >.manager-photo {
+      width: 100%;
+      height: auto;
+      aspect-ratio: 1/1;
+
+      position: relative;
+      border-radius: 50%;
+
+      /* background-color: blueviolet; */
+      >.behind-image {
+        position: absolute;
+        background-color: var(--brown);
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        >a {
+          pointer-events: none;
+          /* background-color: rgba(30, 255, 0, 0.603); */
+          width: 20%;
+          height: 20%;
+
+          & img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            filter: invert();
+            /* background-color: rgba(30, 255, 0, 0.603); */
+          }
+        }
+      }
+
+      >img {
+        pointer-events: none;
+        width: 100%;
+        height: auto;
+        position: absolute;
+        border-radius: 50%;
+
+        /* transform-origin: top center;
+        animation: manager-photo-anim-out 500ms; */
+        transition: 0.5s var(--bounce);
+      }
+
+      &:hover>img {
+        transform-origin: top center;
+        /* animation: manager-photo-anim-in 500ms; */
+        rotate: -15deg;
+        transition: 0.5s var(--bounce);
+
+        &.clicked {
+          transform-origin: top center;
+          /* animation: manager-photo-clicked 400ms; */
+          rotate: -100deg;
+          transition: 0.5s var(--bounce);
+        }
+      }
+
+      &:has(.clicked) a {
+        pointer-events: auto;
+      }
+    }
+
+    >.manager-info {
+      margin-top: 1rem;
+
+      >* {
+        text-align: center;
+      }
+    }
+  }
+
+  >.manager:nth-of-type(3) .manager-photo {
+    >img {
+      border-radius: 0%;
+    }
+  }
+}
+
+#location {
+  & h2::before {
+    content: url(../Images/icons/navigation-ico.png);
+    filter: invert();
+    aspect-ratio: 1/1;
+    width: 10%;
+    transform: scale(0.5) translateY(-40%);
+    object-fit: contain;
+    float: left;
+  }
+}
+
+#contact-us {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  & .location {
+    flex-grow: 500px;
+  }
+
+  & iframe {
+    width: 40%;
+    min-height: 32dvh;
+    border-radius: 15px;
+  }
+}

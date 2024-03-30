@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="stylesheet" href="../css/GeneralStyles.css" />
+  <link rel="stylesheet" href="../css/Contact.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/x-icon" href="../Images/Grouplogo.png">
+  <title>Contact Us | Formag</title>
+</head>
+
+<body>
+  <img src="../Images/background.jpg" alt="" id="background-img" />
+  <div id="background-gradient"></div>
+  <nav id="navbar-top">
+    <div id="logo">
+      <a href="Main.html" id="logo-img">
+        <img src="../Images/logo.png" alt="logo" />
+      </a>
+    </div>
+    <div id="pages">
+      <a href="Services.html"> Services </a>
+      <a href="News.html"> News </a>
+      <a href="Career.html"> Career </a>
+      <a href="About-us.html"> About Us </a>
+    </div>
+    <button id="contact"><a href="Contact.html">Contact with us</a></button>
+  </nav>
+
+  <div id="content">
+    <div id="contact-form">
+      <h2>Our staff is always eager to engage with customer that are both intriguing ans ambitious. Get in contact with
+        us if you’re ready to begin your business cooperation with us.</h2>
+      <form id="form" action="#">
+        <div class="form-element">
+          <label for="name">Name</label>
+          <input type="text" id="name" placeholder="Enter your name" required />
+          <hr />
+        </div>
+        <div class="form-element">
+          <label for="company">Company</label>
+          <input type="text" id="company" placeholder="Enter your company name" required />
+          <hr />
+        </div>
+        <div class="form-element">
+          <label for="email">Email</label>
+          <input type="email" id="email" placeholder="Enter your e-mail adress" required />
+          <hr />
+        </div>
+        <div class="form-element">
+          <label for="phone-num">Phone number</label>
+          <input type="tel" id="phone-num" placeholder="Enter you contacts" required />
+          <hr />
+        </div>
+        <div class="form-element">
+          <label for="details">Other details</label>
+          <input type="text" id="details" placeholder="Any info which we need to know" />
+          <hr />
+        </div>
+        <div class="form-element">
+          <input type="submit" />
+        </div>
+      </form>
+    </div>
+    <div id="social-medias">
+      <div class="social">
+        <a href="https://www.facebook.com/" target="_blank">
+          <hr>
+          <div>
+            <h2>Facebook</h2>
+            <img src="../Images/icons/facebook-ico.png" alt="">
+          </div>
+        </a>
+      </div>
+
+      <div class="social">
+        <a href="https://www.facebook.com/" target="_blank">
+          <hr>
+          <div>
+            <h2>LinkedIn</h2>
+            <img src="../Images/icons/LinkedIn-ico.png" alt="">
+          </div>
+        </a>
+      </div>
+
+      <div class="social">
+        <a href="https://www.facebook.com/" target="_blank">
+          <hr>
+          <div>
+            <h2>Our Blog</h2>
+            <img src="../Images/icons/facebook-ico.png" alt="">
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div id="logo">
+      <img src="../Images/Grouplogo.png" alt="logo">
+    </div>
+    <div id="pages">
+      <a href="Services.html"> Services </a>
+      <a href="News.html"> News </a>
+      <a href="Career.html"> Career </a>
+      <a href="About-us.html"> About Us </a>
+    </div>
+  </footer>
+
+  <script>
+    document.querySelector('form').onsubmit = e => {
+      e.target.submit();
+      e.target.reset();
+      alert("Done")
+      return false;
+    }
+  </script>
+</body>
+</html>

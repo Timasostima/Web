@@ -1,0 +1,59 @@
+#background-gradient{
+  background: linear-gradient(0deg, rgba(47, 19, 4, 0.8) 23.68%, rgba(217, 217, 217, 0) 100%);
+}
+h2{
+  text-align: center;
+}
+#service-motto{
+  display: flex;
+  justify-content: space-between;
+  padding: 0 7rem;
+  gap: 5rem;
+  & .service-text{
+    margin-top: 1rem;
+    padding: 1rem;
+    width: 30%;
+    height: fit-content;
+    transition: background-color 500ms;
+    border-radius: 20px;
+    &:hover{
+      background-color: var(--brown);
+      transition: background-color 500ms;
+    }
+  }
+}
+
+#vacancies{
+  display: flex;
+  flex-direction: column;
+  
+  >.vacancy{
+    width: 80%;
+    border-radius: 20px;
+
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: auto;
+
+
+    & h2{
+      margin-bottom: 1rem;
+    }
+    & img{
+      margin: auto 0;
+      width: 50px;
+      filter: invert();
+    }
+
+    transition: background-color 750ms, padding 750ms;
+    
+    &:hover{
+      background-color: var(--brown);
+      padding: 1.2rem 3rem;
+      transition: 1s;
+    }
+  }
+}
+

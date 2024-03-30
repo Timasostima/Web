@@ -1,0 +1,61 @@
+#background-gradient{
+  background: linear-gradient(0deg, rgba(47, 19, 4, 0.8) 5%, rgba(238, 237, 237, 0.3) 100%);
+}
+
+#services{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  /* grid-template-rows: 1fr 1fr 1fr; */
+  row-gap: 5dvh;
+}
+.service{
+  width: 80%;
+  margin: 0 auto;
+  /* background-color: rgba(36, 120, 193, 0.3); */
+  padding: 20px;
+  border-radius: 20px;
+  
+
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+
+  transition: background-color 500ms;
+  
+  & hr{
+    width: 30%;
+    /* margin: 0.4rem auto 0.4rem auto; */
+    margin: 4% 0;
+    transition: width 500ms;
+  }
+  .service-name{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+
+    & h5{
+      padding-right: 1rem;
+    }
+    & img{
+      width: 10%;
+      height: auto;
+      aspect-ratio: 1/1;
+      object-fit: contain;
+      
+      filter: invert();
+    }
+  }
+  > p{
+    margin-top: 1rem;
+  }
+}
+
+.service:hover{
+  background-color: var(--brown);
+  & hr{
+  width: 100%;
+  transition: width 500ms;
+  }
+}

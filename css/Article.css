@@ -1,0 +1,22 @@
+#content{
+  & h1{
+    text-align: center;
+    margin-bottom: 4rem;
+  }
+
+  & article{
+    display: flex;
+    justify-content: space-between;
+    margin: 0;
+    & img{
+      width: 50%;
+      aspect-ratio: 16/9;
+      object-fit:cover;
+      box-shadow: 0 0 0 2px rgb(199, 199, 199), 0 0 0 6px rgb(101, 101, 101);
+    }
+    & p{
+      width: 40%;
+      margin: 0;
+    }
+  }
+}
