@@ -29,7 +29,7 @@ body {
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.19);
 }
 
-#content>* {
+#content > * {
   margin-top: 15dvh;
 
   &:first-child {
@@ -75,7 +75,6 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  z-index: -1;
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -139,7 +138,7 @@ input[type="submit"] {
 #logo #logo-img {
   height: 100%;
 
-  >img {
+  > img {
     width: auto;
     height: 100%;
   }
@@ -147,31 +146,26 @@ input[type="submit"] {
 
 hr {
   width: 77%;
-  /* margin-top: 30dvh; */
   margin-bottom: 1rem;
-  /* border: none; */
   border-top: 1px solid var(--white);
   opacity: 0.6;
 }
 
 
-
 #navbar-top {
   height: 17.77vh;
-  /* height: 128px; */
   overflow: hidden;
   width: 100%;
-  /* background-color: rgb(233, 183, 211); */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
-  >* {
+  > * {
     height: 33%;
   }
 
-  >#pages {
+  > #pages {
     overflow: hidden;
     list-style: none;
 
@@ -180,10 +174,9 @@ hr {
     align-items: center;
     justify-content: flex-end;
     margin-right: -10dvw;
-    /* background-color: rgb(118, 191, 255); */
     gap: 3dvw;
 
-    >a {
+    > a {
       font-size: 16px;
       font-weight: 100;
       text-align: center;
@@ -213,14 +206,12 @@ hr {
   #logo {
     height: 30%;
     overflow: hidden;
-    /* background-color: var(--brown); */
     margin-left: -2px;
     display: flex;
     align-items: center;
 
-    >img {
+    > img {
       display: block;
-      /* background-color: aliceblue; */
       width: auto;
       height: 80%;
     }
@@ -232,17 +223,16 @@ footer {
   margin-top: 7rem;
   overflow: hidden;
   width: 100%;
-  /* background-color: rgb(233, 183, 211); */
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
 
-  >* {
+  > * {
     height: 33%;
   }
 
-  >#pages {
+  > #pages {
     overflow: hidden;
     list-style: none;
 
@@ -250,16 +240,14 @@ footer {
     flex-direction: row;
     align-items: center;
     justify-content: flex-end;
-    /* background-color: rgb(118, 191, 255); */
     gap: 3dvw;
 
-    >a {
+    > a {
       font-size: 16px;
       font-weight: 100;
       text-align: center;
       text-decoration: none;
       color: rgb(255, 254, 254);
-      /* background-color: rgb(66, 86, 103); */
       padding: 20% 1rem;
     }
   }
@@ -267,7 +255,6 @@ footer {
   & #logo {
     height: 50%;
     padding-left: 1px;
-    /* background-color: var(--brown); */
     margin-left: -2px;
     display: flex;
     align-items: center;

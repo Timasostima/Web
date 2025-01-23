@@ -4,32 +4,28 @@
 }
 
 #our-cualities {
-  /* margin: 6.5% 0; */
   height: 46dvh;
   width: 41vw;
-  /* background-color: rgba(0, 22, 41, 0.126); */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  >#cualities-text {
+  > #cualities-text {
     height: 61%;
-    /* background-color: aqua; */
     position: relative;
 
-    >ul {
-      padding: auto;
+    > ul {
       margin-left: 25px;
       position: absolute;
       bottom: 0%;
 
-      >li {
+      > li {
         margin-top: 0.2rem;
       }
     }
   }
 
-  >button {
+  > button {
     text-transform: uppercase;
     width: fit-content;
     display: flex;
@@ -54,7 +50,6 @@ hr {
 
 #promo {
   width: 77%;
-  /* background-color: rgba(0, 0, 0, 0.186); */
   padding-right: 1rem;
   display: flex;
   flex-direction: row;
@@ -76,7 +71,6 @@ dialog {
   border: none;
   backdrop-filter: hue-rotate(100deg);
   border-radius: 15px;
-  /* padding: 3rem 0 0rem 0rem; */
   padding: 1rem;
   background-color: var(--red);
 
@@ -103,14 +97,12 @@ dialog {
   aspect-ratio: 466 / calc(374 - 374 * 1 / (var(--mapProp) + 1));
 }
 
-#part1>* {
+#part1 > * {
   border-radius: 10px;
-  /* outline: 1px solid; */
 }
 
 #spain-map {
   grid-area: a;
-  /* background-color: var(--orange); */
 
   [id^="tec"] {
     fill: rgba(0, 0, 0, 0);
@@ -167,7 +159,6 @@ dialog {
 .lines {
   grid-area: a;
   pointer-events: none;
-  /* background-color: rgb(1, 1, 1, 0.2); */
 }
 
 #trajectory {
@@ -180,14 +171,12 @@ dialog {
   background-color: var(--brown);
   grid-area: b;
   overflow-y: auto;
-  /* padding-left: 0.4em; */
 
   *:not(#listOfProvinces) {
     text-align: center;
     border-radius: 5px;
     margin: 0.5rem;
     padding: 0.1rem;
-    /* background-color: var(--primary); */
     border: 2px solid var(--white);
     cursor: grab;
   }
@@ -209,20 +198,19 @@ dialog {
 }
 
 #part2 {
-  >table {
+  > table {
     border-collapse: collapse;
     width: 100%;
     margin-bottom: 1rem;
 
-    & tbody tr:not(:last-child) td:not(:first-child){
-        border-bottom: 1px solid var(--white);
-      }
+    & tbody tr:not(:last-child) td:not(:first-child) {
+      border-bottom: 1px solid var(--white);
+    }
+
     & * {
       padding: 2px;
       width: 25%;
-      /* box-shadow: inset 0 0 2px rgba(1, 0, 0, 0.3); */
 
-      
       & td {
         padding: 10px 0;
       }
@@ -250,13 +238,10 @@ form input[type="button"],
 form input[type="submit"] {
   width: 100%;
   height: 100%;
-  border: none;
   padding: 20px;
-  /* background-color: var(--brown); */
   background-color: transparent;
   border: 1px solid var(--white);
 
-  padding: auto;
   border-radius: 10px;
   transition: background-color 500ms;
 
@@ -266,20 +251,20 @@ form input[type="submit"] {
   }
 }
 
-#part3{
-  & h3{
+#part3 {
+  & h3 {
     margin: 0.7rem 0;
-    text-align:start;
+    text-align: start;
     font-size: 22px;
   }
-  & hr{
+
+  & hr {
     margin: 0;
     width: 100%;
   }
-  
+
   & input:not([type="submit"]) {
-    margin: 0.4rem 0;
-    margin-left: -3px;
+    margin: 0.4rem 0 0.4rem -3px;
 
     background-color: transparent;
     border: none;
@@ -301,7 +286,7 @@ form input[type="submit"] {
     }
   }
 
-  & #stats{
+  & #stats {
     margin-bottom: 0.6rem;
     display: flex;
     justify-content: space-between;
