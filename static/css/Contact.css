@@ -1,0 +1,116 @@
+#background-gradient {
+  background: linear-gradient(0deg,
+      rgba(9, 0, 0, 0.392) 0%,
+      rgba(164, 40, 42, 0.624) 91.15%);
+}
+
+#content {
+  padding: 0 5dvw;
+}
+
+#contact-form {
+  display: flex;
+  justify-content: space-between;
+
+  & h2 {
+    width: 40%;
+  }
+
+  & form {
+    width: 50%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+
+    & hr {
+      margin-top: 0.4rem;
+      margin-left: -3px;
+    }
+
+    & input:not([type="submit"]) {
+      margin-top: 10px;
+      margin-left: -3px;
+
+      background-color: transparent;
+      border: none;
+      padding: 0 2px;
+      width: 100%;
+
+      &::placeholder {
+        color: var(--white);
+        opacity: 0.9;
+        font-size: 14px;
+        font-weight: 100;
+        transition: color 300ms;
+      }
+
+      &:hover::placeholder,
+      &:focus::placeholder {
+        transition: color 500ms;
+        color: transparent;
+      }
+    }
+
+    & input[type="submit"] {
+      width: 70%;
+      border: none;
+      padding: 20px 40px;
+      border-radius: 20px;
+      background-color: var(--brown);
+      transition: background-color 500ms;
+
+      &:hover {
+        background-color: var(--brown-dark);
+        transition: background-color 500ms;
+      }
+    }
+  }
+}
+
+#social-medias {
+  display: grid;
+  gap: 5dvw;
+  grid-template-columns: repeat(3, auto);
+
+  /* height: fit-content; */
+  >.social {
+    width: auto;
+    padding: 2rem;
+    border-radius: 15px;
+    transition: background-color 500ms;
+
+    & hr {
+      width: 30%;
+      margin: 0 auto;
+      transition: width 500ms;
+    }
+
+    & div {
+      margin-top: 1rem;
+
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+
+      & img {
+        width: 10%;
+        margin-left: 1rem;
+        /* height: auto; */
+        object-fit: contain;
+        object-fit: cover;
+        filter: invert();
+      }
+    }
+
+    &:hover {
+      background-color: var(--brown);
+      transition: background-color 500ms;
+
+      & hr {
+        width: 100%;
+        transition: width 500ms;
+      }
+    }
+  }
+}
