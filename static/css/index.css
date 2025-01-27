@@ -4,24 +4,19 @@
 }
 
 #our-cualities {
-  height: 46dvh;
-  width: 41vw;
+  height: auto;
+  min-height: 40dvh;
+  gap: 2dvh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
-  > #cualities-text {
-    height: 61%;
-    position: relative;
+  ul {
+    margin-left: 25px;
+    bottom: 0;
 
-    > ul {
-      margin-left: 25px;
-      position: absolute;
-      bottom: 0%;
-
-      > li {
-        margin-top: 0.2rem;
-      }
+    > li {
+      margin-top: 0.2rem;
     }
   }
 
@@ -64,23 +59,34 @@ hr {
   }
 }
 
-dialog {
-  margin: auto;
-  width: 60%;
+@media (max-width: 600px) {
+  #our-cualities {
+    & h1 {
+      font-size: 32px;
+    }
 
-  border: none;
-  backdrop-filter: hue-rotate(100deg);
-  border-radius: 15px;
-  padding: 1rem;
-  background-color: var(--red);
-
-  & h2 {
-    text-align: center;
-    margin-bottom: 1rem;
+    & h2 {
+      font-size: 28px;
+    }
   }
 
-  &::backdrop {
-    background-color: rgba(0, 0, 0, 0.3);
+  & div:has(> #promo) {
+    background-color: rgba(30, 30, 30, 0.35);
+
+    & hr {
+      width: 100%;
+    }
+
+    #promo {
+      width: 100%;
+      flex-direction: column;
+      padding: 0 2dvw;
+
+      > * {
+        width: 100%;
+        margin-bottom: 2dvh;
+      }
+    }
   }
 }
 
