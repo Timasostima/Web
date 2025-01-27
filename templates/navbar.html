@@ -1,16 +1,38 @@
 {% block navbar %}
-<nav id="navbar-top">
-    <div id="logo">
-        <a href="/" id="logo-img">
-            <img src="../static/img/logo.png" alt="logo"/>
-        </a>
-    </div>
-    <div id="pages">
-        <a href="/services"> Services </a>
-        <a href="/news"> News </a>
-        <a href="/career"> Career </a>
-        <a href="/about-us"> About Us </a>
-    </div>
-    <button id="contact"><a href="/contact">Contact with us</a></button>
-</nav>
+    <nav id="navbar-top">
+        <div id="logo">
+            <a href="/" id="logo-img">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo" id="logo_large"/>
+                <img src="{{ url_for('static', filename='img/Grouplogo.png') }}" alt="logo" id="logo_small"/>
+            </a>
+        </div>
+        <div id="pages">
+            <a href="/services"> Services </a>
+            <a href="/news"> News </a>
+            <a href="/career"> Career </a>
+            <a href="/about-us"> About Us </a>
+        </div>
+        <button class="contact-button"><a href="/contact">Contact with us</a></button>
+        <img src="../static/img/icons/burger-menu-svgrepo-com.svg" id="hamburger_closed" class="hamburger"
+             alt="hamburger menu">
+    </nav>
+    <dialog id="navbar_dialog">
+        <div id="logo">
+            <a href="/" id="logo-img">
+                <img src="../static/img/logo.png" alt="logo"/>
+            </a>
+            <img src="../static/img/icons/burger-menu-svgrepo-com.svg" id="hamburger_opened" class="hamburger"
+                 alt="hamburger menu">
+        </div>
+        <hr>
+        <div id="pages_opened">
+            <a href="/services"> Services </a>
+            <a href="/news"> News </a>
+            <a href="/career"> Career </a>
+            <a href="/about-us"> About Us </a>
+        </div>
+        <hr>
+        <button class="contact-button"><a href="/contact">Contact with us</a></button>
+    </dialog>
+
 {% endblock %}
