@@ -9,53 +9,27 @@
 {% block content %}
     <div id="content">
         <div id="news-container">
-            <div class="news">
-                <img src="../static/img/Articles/article1.jpg" alt="">
-                <h2>Oceanic Oddity</h2>
-                <time>01.01.2022</time>
-                <p>Mysterious containers wash ashore on a small island, locals find them filled with antique pirate
-                    treasures and rare artifacts.</p>
-                <a href="Articles/Article1.html" target="_blank">Read more</a>
-            </div>
-
-            <div class="news">
-                <img src="../static/img/Articles/article2.jpg" alt="">
-                <h2>Skyward Surprise</h2>
-                <time>01.01.2022</time>
-                <p>Air shipment accidentally drops thousands of rubber ducks in town square, creating an impromptu
-                    festival
-                    for delighted residents.</p>
-                <a href="Articles/Article2.html" target="_blank">Read more</a>
-            </div>
-
-            <div class="news">
-                <img src="../static/img/Articles/article3.jpg" alt="">
-                <h2>Glacial Gift</h2>
-                <time>01.01.2022</time>
-                <p>Arctic shipment lost for decades found intact, revealing perfectly preserved exotic fruits once
-                    thought
-                    extinct.</p>
-                <a href="Articles/Article3.html" target="_blank">Read more</a>
-            </div>
-
-            <div class="news">
-                <img src="../static/img/Articles/article4.jpg" alt="">
-                <h2>Midnight Carousel</h2>
-                <time>01.01.2022</time>
-                <p>Nighttime shipment of carousel horses causes whimsical traffic jam, enchanting commuters with a
-                    magical
-                    roadside merry-go-round.</p>
-                <a href="Articles/Article4.html" target="_blank">Read more</a>
-            </div>
-
-            <div class="news">
-                <img src="../static/img/Articles/article5.jpg" alt="">
-                <h2>Desert Delivery</h2>
-                <time>01.01.2022</time>
-                <p> Sandstorm uncovers ancient shipment of spices, reviving lost recipes and flavors in a remote desert
-                    village.</p>
-                <a href="Articles/Article5.html" target="_blank">Read more</a>
-            </div>
+            {% for item in news_items %}
+                <div class="news">
+                    <img src="{{ url_for('static', filename='img/Articles/' + item.image) }}" alt="">
+                    <h2>{{ item.title }}</h2>
+                    <time>{{ item.date }}</time>
+                    <p>{{ item.description }}</p>
+                    <a href="#" class="read-more" data-title="{{ item.title }}" data-description="{{ item.content }}"
+                       data-image="{{ url_for('static', filename='img/Articles/' + item.image) }}">Read more</a>
+                </div>
+            {% endfor %}
         </div>
     </div>
+
+    <dialog id="news-modal" class="modal">
+        <span class="close">&times;</span>
+        <h2 id="modal-title"></h2>
+        <img id="modal-image" src="" alt="">
+        <p id="modal-description"></p>
+    </dialog>
+{% endblock %}
+
+{% block script %}
+    <script src="{{ url_for('static', filename='js/News.js') }}"></script>
 {% endblock %}
