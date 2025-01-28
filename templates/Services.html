@@ -11,95 +11,21 @@
     <div id="content">
 
         <div id="services">
-            <div class="service">
-                <hr>
-                <div class="service-name">
-                    <h2>Sea freight</h2>
-                    <img src="../static/img/icons/star-ico.png" alt="">
+            {% for service in services %}
+                <div class="service">
+                    <hr>
+                    <div class="service-name">
+                        <h2>{{ service.name }}</h2>
+                        <img src="../static/img/icons/star-ico.png" alt="">
+                    </div>
+                    <p>{{ service.description }}</p>
                 </div>
-                <p>Sea freight is one of the basic services provided by Formag.</p>
-            </div>
-            <div class="service">
-                <hr>
-                <div class="service-name">
-                    <h2>Air transportation</h2>
-                    <img src="../static/img/icons/star-ico.png" alt="">
-                </div>
-                <p>Air transportation is the fastest and the most reliable way of delivery. </p>
-            </div>
-            <div class="service">
-                <hr>
-                <div class="service-name">
-                    <h2>Tracking</h2>
-                    <img src="../static/img/icons/star-ico.png" alt="">
-                </div>
-                <p>The Formag company has own modern car park, long-term contracts with transport companies.</p>
-            </div>
-
-            <div class="service">
-                <hr>
-                <div class="service-name">
-                    <h2>Railway transportation</h2>
-                    <img src="../static/img/icons/star-ico.png" alt="">
-                </div>
-                <p>Railway delivery is economical and fast. Formag carries out both delivery in Ukraine and cargo
-                    transportation from Asia.</p>
-            </div>
-            <div class="service">
-                <hr>
-                <div class="service-name">
-                    <h2>Warehouse
-                        complex</h2>
-                    <img src="../static/img/icons/star-ico.png" alt="">
-                </div>
-                <p>Formag Forwarding transhipment and storage complex is modern equipment and a team of the best
-                    specialists
-                    in the industry.</p>
-            </div>
-            <div class="service">
-                <hr>
-                <div class="service-name">
-                    <h2>Insurance and custom clearance</h2>
-                    <img src="../static/img/icons/star-ico.png" alt="">
-                </div>
-                <p>Formag is an agent of Megapolis Insurance Partnership, which occupies a leading position in the field
-                    of
-                    cargo insurance</p>
-            </div>
-
-            <div class="service">
-                <hr>
-                <div class="service-name">
-                    <h2><abbr title="LESS-THAN-TRUCKLOAD">LTL</abbr> deliveries</h2>
-                    <img src="../static/img/icons/star-ico.png" alt="">
-                </div>
-                <p>LTL transportation advantages are obvious: if you need to deliver a small consignment, it will be
-                    much
-                    more profitable to use consolidated truck and to share transportation charges with other
-                    shippers.</p>
-            </div>
-            <div class="service">
-                <hr>
-                <div class="service-name">
-                    <h2>Port forwarding</h2>
-                    <img src="../static/img/icons/star-ico.png" alt="">
-                </div>
-                <p>While performing the freight forwarding we constantly notify customers on the matter of their cargos’
-                    status and cooperate with port authorities and customs directly to provide the service of the
-                    highest
-                    quality.</p>
-            </div>
-            <div class="service">
-                <hr>
-                <div class="service-name">
-                    <h2><acronym title="LESS-THAN-TRUCKLOAD">LTL</acronym> deliveries</h2>
-                    <img src="../static/img/icons/star-ico.png" alt="">
-                </div>
-                <p>LCL transportation advantages are obvious: if you need to deliver a small consignment, it will be
-                    much
-                    more profitable to use consolidated container and to share transportation charges with other
-                    shippers.</p>
-            </div>
+            {% endfor %}
         </div>
     </div>
+{% endblock %}
+
+
+{% block script %}
+    <script type="module" src="{{ url_for('static', filename='js/Services.js') }}"></script>
 {% endblock %}

@@ -4,7 +4,8 @@
 
 #services {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, max(300px, 100% / 3)), 1fr));
+
   row-gap: 5dvh;
 }
 
@@ -21,6 +22,15 @@
   align-items: center;
 
   transition: background-color 500ms;
+
+  &:hover, &.hover {
+    background-color: var(--brown);
+
+    & hr {
+      width: 100%;
+      transition: width 500ms;
+    }
+  }
 
   & hr {
     width: 30%;
@@ -43,6 +53,7 @@
       height: auto;
       aspect-ratio: 1/1;
       object-fit: contain;
+      flex-shrink: 0;
 
       filter: invert();
     }
@@ -50,14 +61,5 @@
 
   > p {
     margin-top: 1rem;
-  }
-}
-
-.service:hover {
-  background-color: var(--brown);
-
-  & hr {
-    width: 100%;
-    transition: width 500ms;
   }
 }
