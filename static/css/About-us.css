@@ -21,22 +21,15 @@ h2 {
 }
 
 #corporate-values-enum {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  transform: translateX(-20px);
-  width: calc(100% + 40px);
-
-  &::after {
-    content: "";
-    flex: 0 0 30%;
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, max(300px, 100% / 3)), 1fr));
+  row-gap: 5dvh;
 }
 
 .value-cart {
-  width: 30%;
-  height: min-content;
+  /*width: 30%;*/
+  /*height: min-content;*/
+  height: 100%;
   padding: 20px;
   border-radius: 20px;
 
@@ -62,6 +55,7 @@ h2 {
     & img {
       width: 10%;
       margin-left: 1rem;
+      flex-shrink: 0;
       height: auto;
       object-fit: contain;
       filter: invert();
@@ -82,22 +76,31 @@ h2 {
   }
 }
 
+.value-cart.hover {
+  background-color: var(--brown);
+}
+
+.value-cart.hover hr {
+  width: 100%;
+}
+
 #management-team {
   width: 93%;
-  margin: auto;
-  margin-top: 20dvh;
+  margin: 20dvh auto auto;
 }
 
 #manager-list {
   width: 100%;
-  height: 40dvh;
+  height: auto;
 
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /*gap: 20%;*/
 
   > .manager {
-    width: 17%;
+    width: 70%;
+    max-width: 280px;
+    margin: auto;
 
     display: flex;
     flex-direction: column;
@@ -145,7 +148,8 @@ h2 {
         transition: 0.5s var(--bounce);
       }
 
-      &:hover > img {
+      &:hover > img,
+      &.hover > img {
         transform-origin: top center;
         rotate: -15deg;
         transition: 0.5s var(--bounce);
@@ -191,17 +195,55 @@ h2 {
 }
 
 #contact-us {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 
-  & .location {
-    flex-grow: 500px;
+  & address {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
   }
 
   & iframe {
-    width: 40%;
+    width: 100%;
+    margin-left: auto;
+    margin-right: 2rem;
+    max-width: 500px;
     min-height: 32dvh;
     border-radius: 15px;
+  }
+}
+
+@media (max-width: 1250px) {
+  #manager-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+    grid-row-gap: 4rem;
+  }
+
+  #contact-us {
+    width: 80%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr;
+
+    & iframe {
+      margin: 0;
+      /*width: 100%;*/
+      max-width: 100%;
+      /*min-height: 32dvh;*/
+      /*border-radius: 15px;*/
+    }
+  }
+
+}
+
+@media (max-width: 740px) {
+  #manager-list {
+    display: grid;
+    grid-row-gap: 5rem;
+    grid-template-columns: repeat(1, 1fr);
   }
 }
