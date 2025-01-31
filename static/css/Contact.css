@@ -7,18 +7,20 @@
 }
 
 #contact-form {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  gap: 1rem;
 
   & h2 {
-    width: 40%;
+    height: auto;
   }
 
   & form {
-    width: 50%;
+    /*width: 50%;*/
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-rows: repeat(auto-fit, 1fr);
+
 
     & hr {
       margin-top: 0.4rem;
@@ -51,8 +53,8 @@
 
     & input[type="submit"] {
       width: 70%;
+      height: 4rem;
       border: none;
-      padding: 20px 40px;
       border-radius: 20px;
       background-color: var(--brown);
       transition: background-color 500ms;
@@ -67,7 +69,7 @@
 
 #social-medias {
   display: grid;
-  gap: 5dvw;
+  gap: 3dvw;
   grid-template-columns: repeat(3, auto);
 
   > .social {
@@ -93,7 +95,7 @@
       & img {
         width: 10%;
         margin-left: 1rem;
-        /*object-fit: contain;*/
+        flex-shrink: 0;
         object-fit: cover;
         filter: invert();
       }
@@ -106,6 +108,48 @@
       & hr {
         width: 100%;
         transition: width 500ms;
+      }
+    }
+  }
+}
+
+
+@media (max-width: 1300px) {
+  #contact-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  #contact-form h2 {
+    font-size: 1.5rem;
+  }
+
+  #contact-form form {
+    grid-template-columns: 1fr;
+  }
+
+  #social-medias .social {
+    padding: 1rem;
+    background-color: var(--brown);
+    transition: background-color 500ms;
+
+    & hr {
+      width: 100%;
+      transition: width 500ms;
+    }
+
+    h2 {
+      display: none;
+    }
+
+    div {
+      margin-top: 0.5rem;
+
+      img {
+        width: auto;
+        height: 2rem;
+        margin: auto;
       }
     }
   }
