@@ -3,6 +3,7 @@
   <component name="de.achimonline.quickjinja.settings.QuickJinjaProjectSettingsState">
     <option name="settings">
       <QuickJinjaProjectSettings>
+        <option name="resultViewMode" value="HTML" />
         <option name="templateFilePath" value="$PROJECT_DIR$/static/css/GeneralStyles.css" />
       </QuickJinjaProjectSettings>
     </option>

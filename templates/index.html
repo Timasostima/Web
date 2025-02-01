@@ -37,7 +37,7 @@
 
     <dialog id="dialog-form">
         <h2>Please fill the form</h2>
-        <form action="" id="travel">
+        <form action="/api/save_travel_route" method="POST" id="travel">
             <div id="part1">
                 {% include 'svg_map.html' %}
 
@@ -90,7 +90,7 @@
                     </tr>
                     </tbody>
                 </table>
-                <select>
+                <select id="suscription_plan">
                     <option value="Standart">Standart</option>
                     <option value="Premium" selected>Premium</option>
                     <option value="Ultra" selected>Ultra</option>
@@ -105,9 +105,9 @@
                         <h3>Total Price: 1000 €</h3>
                     </div>
                     <div>
-                        <input type="email" placeholder="Email to send info">
+                        <input type="email" id="email_input" placeholder="Email to send info">
                         <hr>
-                        <input type="text" placeholder="Comment for us">
+                        <input type="text" id="comment_input" placeholder="Comment for us">
                         <hr>
                     </div>
                 </div>
@@ -131,5 +131,5 @@
 {% endblock %}
 
 {% block script %}
-    <script src="../static/js/Main.js"></script>
+    <script src="../static/js/index.js"></script>
 {% endblock %}
