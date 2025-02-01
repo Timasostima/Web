@@ -12,9 +12,22 @@
             <a href="/career"> Career </a>
             <a href="/about-us"> About Us </a>
         </div>
-        <button class="contact-button"><a href="/contact">Contact with us</a></button>
-        <img src="../static/img/icons/burger-menu-svgrepo-com.svg" id="hamburger_closed" class="hamburger"
-             alt="hamburger menu">
+        <div id="contact_section">
+            <a href="/contact" class="contact-button">Contact with us</a>
+            <img src="{{ url_for('static', filename='img/icons/burger-menu-svgrepo-com.svg') }}" id="hamburger_closed"
+                 class="hamburger"
+                 alt="hamburger menu">
+            <div class="login_toggle_menu">
+                <img src="{{ url_for('static', filename='img/icons/login_img.png') }}" id="login_img"
+                     alt="login_placeholder">
+                <ul class="list hidden">
+                    <li><img src="{{ url_for('static', filename='img/icons/account_box.svg') }}" alt="">My Profile</li>
+                    <li><img src="{{ url_for('static', filename='img/icons/route.svg') }}" alt="">My Routes</li>
+                    <li><img src="{{ url_for('static', filename='img/icons/settings.svg') }}" alt="">Configuration</li>
+                    <li><img src="{{ url_for('static', filename='img/icons/logout.svg') }}" alt="">Log Out</li>
+                </ul>
+            </div>
+        </div>
     </nav>
     <dialog id="navbar_dialog">
         <div id="logo">
@@ -32,7 +45,16 @@
             <a href="/about-us"> About Us </a>
         </div>
         <hr>
-        <button class="contact-button"><a href="/contact">Contact with us</a></button>
+        <div id="profile_section">
+            <a href="#">My Profile</a>
+            <a href="#">My Routes</a>
+            <a href="#">Configuration</a>
+            <a href="#">Log Out</a>
+        </div>
+        <hr>
+        <div id="profile_section">
+            <a href="/contact">Contact with us</a>
+        </div>
     </dialog>
 
 {% endblock %}
