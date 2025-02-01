@@ -1,11 +1,19 @@
-from flask import Blueprint, render_template
-from data_classes import News, Service
+from flask import Blueprint, render_template, redirect, url_for
+
+from app import bcrypt
+from app.forms import LoginForm, RegisterForm
+from app.models import db, User
+from app.data_classes import Service, News
+from flask_login import login_user, login_required, logout_user, current_user
+
 
 mvc_bp = Blueprint('mvc', __name__)
 
 
 @mvc_bp.route('/')
 def index():
+    # if not current_user.is_authenticated:
+    #     return redirect(url_for('mvc.login'))
     return render_template("index.html")
 
 
@@ -70,3 +78,34 @@ def about_us():
 @mvc_bp.route('/contact')
 def contact():
     return render_template("Contact.html")
+
+
+@mvc_bp.route('/login', methods=['GET', 'POST'])
+def login():
+    form = LoginForm()
+    if form.validate_on_submit():
+        user = User.query.filter_by(username=form.username.data).first()
+        if user and bcrypt.check_password_hash(user.password, form.password.data):
+            print("herw")
+            login_user(user)
+            return redirect(url_for('mvc.dashboard'))
+    return render_template("Login.html", form=form)
+
+
+@mvc_bp.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        hashed_password = bcrypt.generate_password_hash(form.password.data)
+        user = User(username=form.username.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        return redirect(url_for('mvc.login'))
+    return render_template("Register.html", form=form)
+
+
+@mvc_bp.route('/dashboard')
+@login_required
+def dashboard():
+    print("here")
+    return render_template('dashboard.html')

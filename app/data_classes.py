@@ -1,3 +1,6 @@
+from app.models import Destination, SubscriptionPlan, travel_route_destination, db, TravelRoute
+
+
 class Service:
     def __init__(self, name, description):
         self.name = name

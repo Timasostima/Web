@@ -1,5 +1,6 @@
-from flask import Blueprint, request, jsonify
-from db import create_travel
+from flask import Blueprint, render_template, redirect, url_for, request, jsonify
+
+from app.models import create_travel
 
 api_bp = Blueprint('api', __name__)
 
