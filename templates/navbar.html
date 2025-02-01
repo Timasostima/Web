@@ -7,7 +7,7 @@
             </a>
         </div>
         <div id="pages">
-            <a href="/services"> Services </a>
+            <a href="{{ url_for('mvc.services') }}"> Services </a>
             <a href="/news"> News </a>
             <a href="/career"> Career </a>
             <a href="/about-us"> About Us </a>
@@ -20,12 +20,49 @@
             <div class="login_toggle_menu">
                 <img src="{{ url_for('static', filename='img/icons/login_img.png') }}" id="login_img"
                      alt="login_placeholder">
-                <ul class="list hidden">
-                    <li><img src="{{ url_for('static', filename='img/icons/account_box.svg') }}" alt="">My Profile</li>
-                    <li><img src="{{ url_for('static', filename='img/icons/route.svg') }}" alt="">My Routes</li>
-                    <li><img src="{{ url_for('static', filename='img/icons/settings.svg') }}" alt="">Configuration</li>
-                    <li><img src="{{ url_for('static', filename='img/icons/logout.svg') }}" alt="">Log Out</li>
-                </ul>
+                {% if current_user.is_authenticated %}
+                    <ul class="list hidden">
+                        <li>
+                            <a href="#">
+                                <img src="{{ url_for('static', filename='img/icons/account_box.svg') }}" alt="">My
+                                Profile
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{{ url_for('static', filename='img/icons/route2.svg') }}" alt="">
+                                My Routes
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <img src="{{ url_for('static', filename='img/icons/settings.svg') }}" alt="">
+                                Configuration
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="logout_button">
+                                <img src="{{ url_for('static', filename='img/icons/logout.svg') }}" alt="">
+                                Log Out
+                            </a>
+                        </li>
+                    </ul>
+                {% else %}
+                    <ul class="list hidden">
+                        <li>
+                            <a href="/login">
+                                <img src="{{ url_for('static', filename='img/icons/login.svg') }}" alt="">
+                                Login
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/register">
+                                <img src="{{ url_for('static', filename='img/icons/register.svg') }}" alt="">
+                                Register
+                            </a>
+                        </li>
+                    </ul>
+                {% endif %}
             </div>
         </div>
     </nav>
@@ -46,10 +83,15 @@
         </div>
         <hr>
         <div id="profile_section">
-            <a href="#">My Profile</a>
-            <a href="#">My Routes</a>
-            <a href="#">Configuration</a>
-            <a href="#">Log Out</a>
+            {% if current_user.is_authenticated %}
+                <a href="#">My Profile</a>
+                <a href="#">My Routes</a>
+                <a href="#">Configuration</a>
+                <a href="#" class="logout_button">Log Out</a>
+            {% else %}
+                <a href="/login">Login</a>
+                <a href="/register">Register</a>
+            {% endif %}
         </div>
         <hr>
         <div id="profile_section">

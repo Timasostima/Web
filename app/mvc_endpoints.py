@@ -104,6 +104,13 @@ def register():
     return render_template("Register.html", form=form)
 
 
+@mvc_bp.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('mvc.index'))
+
+
 @mvc_bp.route('/dashboard')
 @login_required
 def dashboard():

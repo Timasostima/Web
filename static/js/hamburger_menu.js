@@ -20,3 +20,16 @@ document.querySelector('.login_toggle_menu').addEventListener('click', function 
     document.querySelector('.list').classList.toggle('hidden');
     document.getElementById('login_img').classList.toggle('active');
 });
+
+
+let logout_btns = document.getElementsByClassName('logout_button')
+if (logout_btns.length > 0) {
+    for (let i = 0; i < logout_btns.length; i++) {
+        logout_btns[i].addEventListener('click', function () {
+            if (confirm("Are you sure?") === true) {
+                window.location.href = "/logout";
+            }
+        })
+    }
+}
+

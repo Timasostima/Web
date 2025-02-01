@@ -97,7 +97,7 @@
 
       ul {
         background-color: var(--brown);
-        padding: 0.5em 0;
+        padding: 0.75em 0;
         margin: 0;
         margin-top: 1em;
         border-radius: 5px;
@@ -114,7 +114,7 @@
         transition: visibility 0s linear 0s, opacity 0.3s linear;
       }
 
-      ul:before {
+      ul:after {
         content: '';
         width: 1em;
         height: 1em;
@@ -133,14 +133,17 @@
       }
 
       li {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
         list-style: none;
-        padding: 0.5em;
-        margin: 0;
-        position: relative;
-        cursor: pointer;
+
+        a {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding: 0.5em;
+          margin: 0;
+          position: relative;
+          cursor: pointer;
+        }
 
         img {
           height: auto;
