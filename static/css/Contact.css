@@ -29,26 +29,6 @@ main {
 
     & input:not([type="submit"]) {
       margin-top: 10px;
-      margin-left: -3px;
-
-      background-color: transparent;
-      border: none;
-      padding: 0 2px;
-      width: 100%;
-
-      &::placeholder {
-        color: var(--white);
-        opacity: 0.9;
-        font-size: 14px;
-        font-weight: 100;
-        transition: color 300ms;
-      }
-
-      &:hover::placeholder,
-      &:focus::placeholder {
-        transition: color 500ms;
-        color: transparent;
-      }
     }
 
     & input[type="submit"] {
