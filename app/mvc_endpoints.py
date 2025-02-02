@@ -5,7 +5,7 @@ from app.forms import LoginForm, RegisterForm
 from app.models import db, User
 from app.data_classes import Service, News
 from flask_login import login_user, login_required, logout_user, current_user
-
+from wtforms.validators import ValidationError
 
 mvc_bp = Blueprint('mvc', __name__)
 
@@ -84,11 +84,10 @@ def contact():
 def login():
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.query.filter_by(username=form.username.data).first()
+        user = User.query.filter_by(email=form.email.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
-            print("herw")
             login_user(user)
-            return redirect(url_for('mvc.dashboard'))
+            return redirect(url_for('mvc.index'))
     return render_template("Login.html", form=form)
 
 
@@ -97,10 +96,12 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data)
-        user = User(username=form.username.data, password=hashed_password)
+        user = User(email=form.email.data, password=hashed_password, name=form.name.data, last_name=form.last_name.data,
+                    company_name=form.company_name.data)
         db.session.add(user)
         db.session.commit()
         return redirect(url_for('mvc.login'))
+
     return render_template("Register.html", form=form)
 
 

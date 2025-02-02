@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+
+{% block specific_styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+{% endblock %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    <div class="form-container">
+        <div class="left-section">
+            <img src="{{ url_for('static', filename='/img/register-banner.png') }}" alt="Registration Banner"
+                 class="form-image">
+        </div>
+        <div class="right-section">
+            <h2>Register</h2>
+            <form method="POST" action="/register" class="register-form" novalidate>
+                {{ form.hidden_tag() }}
+
+                <div class="form-group floating-label-group">
+                    {{ form.email(class_='form-input' + (' has-error' if form.email.errors else ''), placeholder=' ', title=form.email.errors[0] if form.email.errors else '') }}
+                    <label for="{{ form.email.id }}">Email</label>
+                </div>
+                <hr>
+
+                <div class="input-container">
+                    <div class="form-group floating-label-group">
+                        {{ form.name(class_='form-input' + (' has-error' if form.name.errors else ''), placeholder=' ', title=form.name.errors[0] if form.name.errors else '') }}
+                        <label for="{{ form.name.id }}">First Name</label>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group floating-label-group">
+                        {{ form.last_name(class_='form-input' + (' has-error' if form.last_name.errors else ''), placeholder=' ', title=form.last_name.errors[0] if form.last_name.errors else '') }}
+                        <label for="{{ form.last_name.id }}">Last Name</label>
+                    </div>
+
+                    <hr>
+                </div>
+
+
+                <div class="form-group floating-label-group">
+                    {{ form.company_name(class_='form-input' + (' has-error' if form.company_name.errors else ''), placeholder=' ', title=form.company_name.errors[0] if form.company_name.errors else '') }}
+                    <label for="{{ form.company_name.id }}">Company Name</label>
+                </div>
+                <hr>
+
+                <div class="form-group floating-label-group">
+                    {{ form.password(class_='form-input' + (' has-error' if form.password.errors else ''), placeholder=' ', title=form.password.errors[0] if form.password.errors else '') }}
+                    <label for="{{ form.password.id }}">Password</label>
+                </div>
+                <hr>
+
+                <div class="form-group">
+                    {{ form.submit(class_='form-button') }}
+                </div>
+            </form>
+            <p class="login-link">Already have an account? <a href="{{ url_for('mvc.login') }}">Login here</a></p>
+        </div>
+    </div>
+{% endblock %}

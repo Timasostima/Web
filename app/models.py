@@ -45,8 +45,11 @@ class Destination(db.Model):
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(30), unique=True, nullable=False)
     password = db.Column(db.String(80), nullable=False)
+    name = db.Column(db.String(20), nullable=False)
+    last_name = db.Column(db.String(30), nullable=True)
+    company_name = db.Column(db.String(20), nullable=True)
 
 
 def create_travel(subscription_plan_name, destination_names, comment, email):

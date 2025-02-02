@@ -1,21 +1,25 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import InputRequired, Length, ValidationError
+from wtforms import StringField, PasswordField, EmailField, SubmitField
+from wtforms.validators import InputRequired, Optional, Length, ValidationError, Email
 from app.models import User
 
 
 class RegisterForm(FlaskForm):
-    username = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
-    password = PasswordField(validators=[InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
+
+    email = EmailField(validators=[InputRequired(), Length(min=4, max=30), Email()], render_kw={"placeholder": "Email"})
+    name = StringField(validators=[InputRequired(), Length(min=3, max=20)], render_kw={"placeholder": "Name"})
+    last_name = StringField(validators=[Optional(), Length(min=3, max=30)], render_kw={"placeholder": "Lastname"})
+    company_name = StringField(validators=[Optional(), Length(min=3, max=20)], render_kw={"placeholder": "Company Name"})
+    password = PasswordField(validators=[InputRequired(), Length(min=6, max=20)], render_kw={"placeholder": "Password"})
     submit = SubmitField('Register')
 
-    def validate_username(self, username):
-        existing_username = User.query.filter_by(username=username.data).first()
-        if existing_username:
-            raise ValidationError('Username already taken')
+    def validate_email(self, email):
+        existing_user = User.query.filter_by(email=email.data).first()
+        if existing_user:
+            raise ValidationError('Email already taken')
 
 
 class LoginForm(FlaskForm):
-    username = StringField(validators=[InputRequired(), Length(min=4, max=20)], render_kw={"placeholder": "Username"})
+    email = EmailField(validators=[InputRequired(), Length(min=4, max=30), Email()], render_kw={"placeholder": "Email"})
     password = PasswordField(validators=[InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
     submit = SubmitField('Login')

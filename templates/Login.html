@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block specific_styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}">
+{% endblock %}
+
+{% block title %}Log In{% endblock %}
+
+{% block content %}
+    <div class="form-container">
+        <div class="left-section">
+            <img src="{{ url_for('static', filename='/img/register-banner.png') }}" alt="Registration Banner"
+                 class="form-image">
+        </div>
+        <div class="right-section">
+            <h2>Log In</h2>
+            <form method="POST" action="/login" class="register-form" novalidate>
+                {{ form.hidden_tag() }}
+
+                <div class="form-group floating-label-group">
+                    {{ form.email(class_='form-input' + (' has-error' if form.email.errors else ''), placeholder=' ', title=form.email.errors[0] if form.email.errors else '') }}
+                    <label for="{{ form.email.id }}">Email</label>
+                </div>
+                <hr>
+
+                <div class="form-group floating-label-group">
+                    {{ form.password(class_='form-input' + (' has-error' if form.password.errors else ''), placeholder=' ', title=form.password.errors[0] if form.password.errors else '') }}
+                    <label for="{{ form.password.id }}">Password</label>
+                </div>
+                <hr>
+
+                <div class="form-group">
+                    {{ form.submit(class_='form-button') }}
+                </div>
+            </form>
+            <p class="login-link">Don't have an account? <a href="{{ url_for('mvc.register') }}">Register here</a></p>
+        </div>
+    </div>
+{% endblock %}
