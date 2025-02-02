@@ -6,6 +6,8 @@
   --orange: #ED7432;
   --red: #A4282A;
   --btn-size: 65px;
+  --navbar-top-height: 17.77vh;
+  --navbar-bottom-height: 12vh;
 }
 
 html {
@@ -31,7 +33,12 @@ body {
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.19);
 }
 
-#content > * {
+main{
+  min-height: calc(100vh - var(--navbar-top-height) - var(--navbar-bottom-height) - 7rem - 10dvh); /*nav, footer and margin*/
+  position: relative;
+}
+
+main > * {
   margin-top: 15dvh;
 
   &:first-child {
@@ -179,7 +186,7 @@ dialog:modal {
 }
 
 footer {
-  height: 12vh;
+  height: var(--navbar-bottom-height);
   margin-top: 7rem;
   overflow: hidden;
   width: 100%;

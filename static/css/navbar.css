@@ -1,5 +1,5 @@
 #navbar-top {
-  height: 17.77vh;
+  height: var(--navbar-top-height);
   width: 100%;
   display: flex;
   flex-direction: row;

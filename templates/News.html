@@ -7,19 +7,17 @@
 {% block title %}News | Formag{% endblock %}
 
 {% block content %}
-    <div id="content">
-        <div id="news-container">
-            {% for item in news_items %}
-                <div class="news">
-                    <img src="{{ url_for('static', filename='img/Articles/' + item.image) }}" alt="">
-                    <h2>{{ item.title }}</h2>
-                    <time>{{ item.date }}</time>
-                    <p>{{ item.description }}</p>
-                    <a href="#" class="read-more" data-title="{{ item.title }}" data-description="{{ item.content }}"
-                       data-image="{{ url_for('static', filename='img/Articles/' + item.image) }}">Read more</a>
-                </div>
-            {% endfor %}
-        </div>
+    <div id="news-container">
+        {% for item in news_items %}
+            <div class="news">
+                <img src="{{ url_for('static', filename='img/Articles/' + item.image) }}" alt="">
+                <h2>{{ item.title }}</h2>
+                <time>{{ item.date }}</time>
+                <p>{{ item.description }}</p>
+                <a href="#" class="read-more" data-title="{{ item.title }}" data-description="{{ item.content }}"
+                   data-image="{{ url_for('static', filename='img/Articles/' + item.image) }}">Read more</a>
+            </div>
+        {% endfor %}
     </div>
 
     <dialog id="news-modal" class="modal">

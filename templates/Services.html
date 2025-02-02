@@ -8,20 +8,18 @@
 
 {% block content %}
 
-    <div id="content">
 
-        <div id="services">
-            {% for service in services %}
-                <div class="service">
-                    <hr>
-                    <div class="service-name">
-                        <h2>{{ service.name }}</h2>
-                        <img src="../static/img/icons/star-ico.png" alt="">
-                    </div>
-                    <p>{{ service.description }}</p>
+    <div id="services">
+        {% for service in services %}
+            <div class="service">
+                <hr>
+                <div class="service-name">
+                    <h2>{{ service.name }}</h2>
+                    <img src="../static/img/icons/star-ico.png" alt="">
                 </div>
-            {% endfor %}
-        </div>
+                <p>{{ service.description }}</p>
+            </div>
+        {% endfor %}
     </div>
 {% endblock %}
 
