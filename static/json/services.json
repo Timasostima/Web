@@ -1,0 +1,34 @@
+[
+    {
+        "name": "Sea freight",
+        "description": "Sea freight is one of the basic services provided by Formag."
+    },
+    {
+        "name": "Air transportation",
+        "description": "Air transportation is the fastest and the most reliable way of delivery."
+    },
+    {
+        "name": "Tracking",
+        "description": "The Formag company has own modern car park, long-term contracts with transport companies."
+    },
+    {
+        "name": "Railway transportation",
+        "description": "Railway delivery is economical and fast. Formag carries out both delivery in Ukraine and cargo transportation from Asia."
+    },
+    {
+        "name": "Warehouse complex",
+        "description": "Formag Forwarding transhipment and storage complex is modern equipment and a team of the best specialists in the industry."
+    },
+    {
+        "name": "Insurance and custom clearance",
+        "description": "Formag is an agent of Megapolis Insurance Partnership, which occupies a leading position in the field of cargo insurance."
+    },
+    {
+        "name": "LTL deliveries",
+        "description": "LTL transportation advantages are obvious: if you need to deliver a small consignment, it will be much more profitable to use consolidated truck and to share transportation charges with other shippers."
+    },
+    {
+        "name": "Port forwarding",
+        "description": "While performing the freight forwarding we constantly notify customers on the matter of their cargos’ status and cooperate with port authorities and customs directly to provide the service of the highest quality."
+    }
+]
