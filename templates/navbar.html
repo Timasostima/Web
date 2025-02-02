@@ -14,7 +14,7 @@
         </div>
         <div id="contact_section">
             <a href="/contact" class="contact-button">Contact with us</a>
-            <img src="{{ url_for('static', filename='img/icons/burger-menu-svgrepo-com.svg') }}" id="hamburger_closed"
+            <img src="{{ url_for('static', filename='img/icons/burger-menu.svg') }}" id="hamburger_closed"
                  class="hamburger"
                  alt="hamburger menu">
             <div class="login_toggle_menu">
@@ -69,10 +69,9 @@
     <dialog id="navbar_dialog">
         <div id="logo">
             <a href="/" id="logo-img">
-                <img src="../static/img/logo.png" alt="logo"/>
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="logo"/>
             </a>
-            <img src="../static/img/icons/burger-menu-svgrepo-com.svg" id="hamburger_opened" class="hamburger"
-                 alt="hamburger menu">
+            <img src="{{ url_for('static', filename='img/icons/burger-menu.svg') }}" id="hamburger_opened" class="hamburger" alt="hamburger menu">
         </div>
         <hr>
         <div id="pages_opened">

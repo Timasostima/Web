@@ -184,11 +184,9 @@ h2 {
 
 #location {
   & h2::before {
-    content: url(../img/icons/navigation-ico.png);
+    content: url(../img/icons/navigation.svg);
     filter: invert();
     aspect-ratio: 1/1;
-    width: 10%;
-    transform: scale(0.5) translateY(-40%);
     object-fit: contain;
     float: left;
   }
