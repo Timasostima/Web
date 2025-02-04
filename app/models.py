@@ -24,14 +24,17 @@ class SubscriptionPlan(db.Model):
 class TravelRoute(db.Model):
     __tablename__ = 'travel_routes'
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id', ondelete='SET NULL'), nullable=True)
+    guest_email = db.Column(db.String, nullable=True)
     comment = db.Column(db.String, nullable=False)
     date_of_start = db.Column(db.Date, nullable=False)
     subscription_plan_id = db.Column(db.Integer, db.ForeignKey('subscription_plans.id', ondelete='CASCADE'),
                                      nullable=False)
+
     subscription_plan = db.relationship('SubscriptionPlan', cascade='all, delete')
     destinations = db.relationship('Destination', secondary=travel_route_destination, back_populates='travel_routes',
                                    cascade='all, delete')
+    # user = db.relationship('User', back_populates='travel_routes')
 
 
 class Destination(db.Model):
@@ -52,7 +55,7 @@ class User(db.Model, UserMixin):
     company_name = db.Column(db.String(20), nullable=True)
 
 
-def create_travel(subscription_plan_name, destination_names, comment, email):
+def create_travel(subscription_plan_name, destination_names, comment, email=None, user_id=None):
     subscription_plan = SubscriptionPlan.query.filter_by(name=subscription_plan_name).first()
     if not subscription_plan:
         raise ValueError(f"Subscription plan '{subscription_plan_name}' does not exist.")
@@ -63,8 +66,12 @@ def create_travel(subscription_plan_name, destination_names, comment, email):
         missing_destinations = set(destination_names) - {d.name for d in destinations}
         raise ValueError(f"Some destinations do not exist in the database: {missing_destinations}")
 
+    if not (email or user_id):
+        raise ValueError("Either an email for guests or a user_id for logged-in users must be provided.")
+
     travel_route = TravelRoute(
-        email=email,
+        user_id=user_id,
+        guest_email=email if not user_id else None,
         comment=comment,
         date_of_start=date.today(),
         subscription_plan=subscription_plan,

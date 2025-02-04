@@ -26,6 +26,7 @@ def create_app(config_class='config.Config'):
 
     return app
 
+
 def seed_data():
     if not Destination.query.first():
         destinations = [
