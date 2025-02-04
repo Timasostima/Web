@@ -1,4 +1,6 @@
 *.db
+*.env
+**/cities
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
