@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block specific_styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Routes.css') }}">
+{% endblock %}
+
+
+{% block title %}My Routes{% endblock %}
+
+{% block content %}
+    {#    <svg id="barcode"></svg>#}
+    <div class="route_container">
+        <div class="route_card">
+            <h3 class="ref">ref #00123130</h3>
+
+            <div class="left_side">
+                <h3>100$</h3>
+                <h3>100km</h3>
+                <h3>5 Feb - 2 March</h3>
+            </div>
+            <div class="right_side">
+                <div class="route_destination">
+                    <img src="{{ url_for('static', filename='img/cities/Cordoba.jpg') }}" alt="">
+                    <h2>Cordoba</h2>
+                </div>
+                <div class="meta_info">
+                    <span>33days</span>
+                    <img src="{{ url_for('static', filename='img/icons/arrow.svg') }}" alt="">
+                </div>
+                <div class="route_destination">
+                    <img src="{{ url_for('static', filename='img/cities/Hierro.jpg') }}" alt="">
+                    <h2>hierro</h2>
+                </div>
+            </div>
+            <div class="id">
+                <img src="{{ url_for('static', filename='img/barcode.png') }}" alt="">
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        let userId = {{ current_user.id }};
+    </script>
+    <script src="{{ url_for('static', filename='js/Routes.js') }}"></script>
+{% endblock %}

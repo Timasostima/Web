@@ -62,6 +62,7 @@ def get_routes(user_id):
         .query(
             TravelRoute.id,
             SubscriptionPlan.name,
+            TravelRoute.date_of_start,
             TravelRoute.date_of_end,
             SubscriptionPlan.price,
             Destination.name
@@ -77,14 +78,15 @@ def get_routes(user_id):
     for r in res:
         route = next((item for item in res2 if item['id'] == r[0]), None)
         if route:
-            route['destinations'].append(r[4])
+            route['destinations'].append(r[5])
         else:
             res2.append({
                 'id': r[0],
                 'plan': r[1],
-                'date_of_end': r[2].strftime('%B %d'),
-                'price_km': r[3],
-                'destinations': [r[4]],
+                'date_of_start': r[2].strftime('%d/%m/%Y'),
+                'date_of_end': r[3].strftime('%d/%m/%Y'),
+                'price_km': r[4],
+                'destinations': [r[5]],
             })
 
     for route in res2:
