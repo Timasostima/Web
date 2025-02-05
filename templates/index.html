@@ -98,14 +98,16 @@
 
             <div id="part3">
                 <div id="stats">
-                    <div>
-                        <h3>Total Distance: 1500 km</h3>
-                        <h3>Total Price: 1000 €</h3>
+                    <div id="price_and_distance">
+                        <h3 id="distance_form">Total Distance: 1500 km</h3>
+                        <h3 id="price_form">Total Price: 1000 €</h3>
                     </div>
-                    <div>
-                        <input type="email" id="email_input" placeholder="Email to send info">
-                        <hr>
-                        <input type="text" id="comment_input" placeholder="Comment for us">
+                    <div id="comment_section">
+                        {% if not current_user.is_authenticated %}
+                            <input type="email" id="email_input" placeholder="Email to send info">
+                            <hr>
+                        {% endif %}
+                        <textarea id="comment_input" placeholder="Comment for us"></textarea>
                         <hr>
                     </div>
                 </div>
@@ -115,19 +117,8 @@
         </form>
     </dialog>
 
-    <dialog id="dialog-price">
-        <h2>Please fill the form</h2>
-        <form action="" id="price">
-
-            <div class="form-element">
-                <!-- <input type="submit" id="submit-price"> -->
-            </div>
-
-        </form>
-    </dialog>
-
 {% endblock %}
 
 {% block script %}
-    <script src="../static/js/index.js"></script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
 {% endblock %}

@@ -249,28 +249,30 @@ dialog {
   }
 }
 
-& input:not([type="submit"]) {
-    margin: 0.4rem 0 0.4rem -3px;
+& input:not([type="submit"]), textarea {
+  margin: 0.4rem 0 0.4rem -3px;
 
-    background-color: transparent;
-    border: none;
-    padding: 0 2px;
-    width: 100%;
+  background-color: transparent;
+  border: none;
+  padding: 0 2px;
+  width: 100%;
 
-    &::placeholder {
-      color: var(--white);
-      opacity: 0.9;
-      font-size: 14px;
-      font-weight: 100;
-      transition: color 300ms;
-    }
+  resize: none;
 
-    &:hover::placeholder,
-    &:focus::placeholder {
-      transition: color 500ms;
-      color: transparent;
-    }
+  &::placeholder {
+    color: var(--white);
+    opacity: 0.9;
+    font-size: 14px;
+    font-weight: 100;
+    transition: color 300ms;
   }
+
+  &:hover::placeholder,
+  &:focus::placeholder {
+    transition: color 500ms;
+    color: transparent;
+  }
+}
 
 form input[type="button"],
 form input[type="submit"] {
@@ -290,5 +292,5 @@ form input[type="submit"] {
 }
 
 input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px white inset;
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
 }

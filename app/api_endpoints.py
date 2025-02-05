@@ -23,7 +23,8 @@ def save_travel_route():
 
 @api_bp.route('/api/calculate_travel_route', methods=['GET'])
 def calculate_travel_route():
-    destinations = request.args.getlist('destinations')
+    destinations = request.args.get('destinations')
+    destinations = destinations.split(',')
     plans = SubscriptionPlan.query.order_by(SubscriptionPlan.price).all()
     response = []
     for i, plan in enumerate(plans):
@@ -56,23 +57,40 @@ def calculate_distance_price():
 # @login_required
 def get_routes(user_id):
     user = User.query.filter_by(id=user_id).first()
-    res = (db.session.query(TravelRoute.id, SubscriptionPlan.name, Destination.name)
-           .join(SubscriptionPlan, TravelRoute.subscription_plan_id == SubscriptionPlan.id)
-           .join(travel_route_destination, TravelRoute.id == travel_route_destination.c.travel_route_id)
-           .join(Destination, travel_route_destination.c.destination_id == Destination.id)
-           .filter((TravelRoute.user_id == user_id) | (TravelRoute.guest_email == user.email))
-           .all())
+    res = (
+        db.session
+        .query(
+            TravelRoute.id,
+            SubscriptionPlan.name,
+            TravelRoute.date_of_end,
+            SubscriptionPlan.price,
+            Destination.name
+        )
+        .join(SubscriptionPlan, TravelRoute.subscription_plan_id == SubscriptionPlan.id)
+        .join(travel_route_destination, TravelRoute.id == travel_route_destination.c.travel_route_id)
+        .join(Destination, travel_route_destination.c.destination_id == Destination.id)
+        .filter((TravelRoute.user_id == user_id) | (TravelRoute.guest_email == user.email))
+        .all())
 
     print(res)
-    res2 = {}
+    res2 = []
     for r in res:
-        if r[0] in res2:
-            res2[r[0]]['destinations'].append(r[2])
+        route = next((item for item in res2 if item['id'] == r[0]), None)
+        if route:
+            route['destinations'].append(r[4])
         else:
-            res2[r[0]] = {
+            res2.append({
+                'id': r[0],
                 'plan': r[1],
-                'destinations': [r[2]]
-            }
+                'date_of_end': r[2].strftime('%B %d'),
+                'price_km': r[3],
+                'destinations': [r[4]],
+            })
+
+    for route in res2:
+        route['price'] = route['price_km'] * len(route['destinations'])
+        route['distance'] = len(route['destinations']) * 100
+        route.pop('price_km')
 
     print(res2)
     return jsonify(res2)

@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
-from datetime import date
+from datetime import date, datetime, timedelta
 
 db = SQLAlchemy()
 
@@ -28,6 +28,7 @@ class TravelRoute(db.Model):
     guest_email = db.Column(db.String, nullable=True)
     comment = db.Column(db.String, nullable=False)
     date_of_start = db.Column(db.Date, nullable=False)
+    date_of_end = db.Column(db.Date, nullable=False)
     subscription_plan_id = db.Column(db.Integer, db.ForeignKey('subscription_plans.id', ondelete='CASCADE'),
                                      nullable=False)
 
@@ -69,11 +70,21 @@ def create_travel(subscription_plan_name, destination_names, comment, email=None
     if not (email or user_id):
         raise ValueError("Either an email for guests or a user_id for logged-in users must be provided.")
 
+    plan_days_offset = {
+        'Standard': 0,
+        'Premium': 1,
+        'Ultra': 2
+    }.get(subscription_plan.name, 0)
+
+    amount_of_days = len(destinations) + plan_days_offset * 3
+    estimated_date = datetime.now() + timedelta(days=amount_of_days)
+
     travel_route = TravelRoute(
         user_id=user_id,
         guest_email=email if not user_id else None,
         comment=comment,
         date_of_start=date.today(),
+        date_of_end=estimated_date,
         subscription_plan=subscription_plan,
         destinations=destinations
     )

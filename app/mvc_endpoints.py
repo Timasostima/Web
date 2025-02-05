@@ -76,8 +76,8 @@ def logout():
     return redirect(url_for('mvc.index'))
 
 
-@mvc_bp.route('/dashboard')
+@mvc_bp.route('/my_routes')
 @login_required
 def dashboard():
     print("here")
-    return render_template('dashboard.html')
+    return render_template('My_Routes.html')

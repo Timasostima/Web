@@ -112,6 +112,7 @@ main {
 
     a {
       padding: 1rem;
+      margin: auto;
     }
 
     hr {
