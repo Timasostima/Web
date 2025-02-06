@@ -1,6 +1,7 @@
 *.db
 *.env
 **/cities
+scraper.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

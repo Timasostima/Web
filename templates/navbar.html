@@ -23,7 +23,7 @@
                 {% if current_user.is_authenticated %}
                     <ul class="list hidden">
                         <li>
-                            <a href="#">
+                            <a href="/my_profile">
                                 <img src="{{ url_for('static', filename='img/icons/account_box.svg') }}" alt="">My
                                 Profile
                             </a>
@@ -32,12 +32,6 @@
                             <a href="/my_routes">
                                 <img src="{{ url_for('static', filename='img/icons/route2.svg') }}" alt="">
                                 My Routes
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="{{ url_for('static', filename='img/icons/settings.svg') }}" alt="">
-                                Configuration
                             </a>
                         </li>
                         <li>
@@ -83,9 +77,8 @@
         <hr>
         <div id="profile_section">
             {% if current_user.is_authenticated %}
-                <a href="#">My Profile</a>
+                <a href="/my_profile">My Profile</a>
                 <a href="/my_routes">My Routes</a>
-                <a href="#">Configuration</a>
                 <a href="#" class="logout_button">Log Out</a>
             {% else %}
                 <a href="/login">Login</a>
@@ -93,7 +86,7 @@
             {% endif %}
         </div>
         <hr>
-        <div id="profile_section">
+        <div id="contact_section">
             <a href="/contact">Contact with us</a>
         </div>
     </dialog>

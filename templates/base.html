@@ -5,6 +5,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/GeneralStyles.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
     {% block specific_styles %}{% endblock %}
+    {% block third_party_script %}{% endblock %}
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="icon" type="image/x-icon" href="../static/img/Grouplogo.png">
     <title>{% block title %}{% endblock %}</title>
