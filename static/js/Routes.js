@@ -55,13 +55,14 @@ function createRouteCard(route) {
             <h2>${startDest}</h2>
         </div>
         <div class="meta_info">
-            <span>${duration}days</span>
+            <span>${duration} days</span>
             <img src="static/img/icons/arrow.svg" alt="">
         </div>
         <div class="route_destination">
             <img src="${endImagePath}" alt="">
             <h2>${endDest}</h2>
         </div>
+        <span class="coupontooltip">${destinations.join(', ')}</span>
     `;
     card.appendChild(rightSide);
 
@@ -75,9 +76,3 @@ function createRouteCard(route) {
 
     document.querySelector('.route_container').appendChild(card);
 }
-
-// function textToBase64Barcode(text){
-//   var canvas = document.createElement("canvas");
-//   JsBarcode(canvas, text, {format: "CODE39"});
-//   return canvas.toDataURL("image/png");
-// }
