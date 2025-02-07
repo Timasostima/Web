@@ -9,6 +9,14 @@ from app.models import create_travel, SubscriptionPlan, TravelRoute, db, User, D
 api_bp = Blueprint('api', __name__)
 
 
+def calc_distance(destinations):
+    return len(destinations) * 300
+
+
+def calc_price(distance, plan):
+    return distance * plan
+
+
 @api_bp.route('/api/save_travel_route', methods=['POST'])
 def save_travel_route():
     data = request.get_json()
@@ -47,15 +55,13 @@ def calculate_distance_price():
     plan = SubscriptionPlan.query.filter_by(name=plan_arg).first()
 
     response = {
-        'price': plan.price * len(destinations),
+        'price': calc_price(len(destinations), plan.price),
         'distance': len(destinations) * 100
     }
     return jsonify(response)
 
 
-@api_bp.route('/api/get_routes/<int:user_id>', methods=['GET'])
-# @login_required
-def get_routes(user_id):
+def query_routes(user_id):
     user = User.query.filter_by(id=user_id).first()
     res = (
         db.session
@@ -73,7 +79,15 @@ def get_routes(user_id):
         .filter((TravelRoute.user_id == user_id) | (TravelRoute.guest_email == user.email))
         .all())
 
-    print(res)
+    # print(res)
+    return res
+
+
+@api_bp.route('/api/get_routes/<int:user_id>', methods=['GET'])
+# @login_required
+def get_routes(user_id):
+    res = query_routes(user_id)
+
     res2 = []
     for r in res:
         route = next((item for item in res2 if item['id'] == r[0]), None)
@@ -90,9 +104,48 @@ def get_routes(user_id):
             })
 
     for route in res2:
-        route['price'] = route['price_km'] * len(route['destinations'])
-        route['distance'] = len(route['destinations']) * 100
+        route['price'] = calc_price(len(route['destinations']), route['price_km'])
+        route['distance'] = calc_distance(route['destinations'])
         route.pop('price_km')
 
-    print(res2)
+    # print(res2)
     return jsonify(res2)
+
+
+@api_bp.route('/api/get_route_data/<int:user_id>', methods=['GET'])
+# @login_required
+def get_route_data(user_id):
+    res = query_routes(user_id)
+
+    res2 = []
+    for r in res:
+        route = next((item for item in res2 if item['id'] == r[0]), None)
+        if route:
+            route['destinations'].append(r[5])
+        else:
+            res2.append({
+                'id': r[0],
+                'plan': r[1],
+                'in_progress': r[2] <= datetime.now().date() <= r[3],
+                'destinations': [r[5]],
+            })
+
+    for route in res2:
+        route['distance'] = calc_distance(route['destinations'])
+
+    res3 = {
+        'total_routes': len(res2),
+        'in_progress': sum(1 for e in res2 if e['in_progress']),
+        'total_distance': sum(e['distance'] for e in res2),
+        'suscription_data': {}
+    }
+
+    for route in res2:
+        plan = route['plan']
+        if plan in res3['suscription_data']:
+            res3['suscription_data'][plan] += 1
+        else:
+            res3['suscription_data'][plan] = 1
+    print(res3)
+
+    return jsonify(res3)

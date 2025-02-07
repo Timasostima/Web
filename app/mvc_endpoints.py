@@ -2,9 +2,9 @@ from flask import Blueprint, render_template, redirect, url_for
 
 from app import bcrypt
 from app.data_classes import Service, News
-from app.forms import LoginForm, RegisterForm
-from app.models import db, User
-from flask_login import login_user, login_required, logout_user
+from app.forms import LoginForm, RegisterForm, UpdateForm
+from app.models import db, User, TravelRoute
+from flask_login import login_user, login_required, logout_user, current_user
 
 from app.utils import load_json
 
@@ -21,6 +21,7 @@ def services():
     services_data = load_json('static/json/services.json')
     services_list = [Service(**service) for service in services_data]
     return render_template('Services.html', services=services_list)
+
 
 @mvc_bp.route('/news')
 def news():
@@ -76,8 +77,38 @@ def logout():
     return redirect(url_for('mvc.index'))
 
 
+@mvc_bp.route('/delete_account')
+@login_required
+def remove():
+    routes = TravelRoute.query.filter_by(user_id=current_user.id)
+    for route in routes:
+        route.user_id = None
+        route.guest_email = current_user.email
+
+    db.session.delete(current_user)
+    db.session.commit()
+    return redirect(url_for('mvc.index'))
+
+
 @mvc_bp.route('/my_routes')
 @login_required
 def dashboard():
-    print("here")
     return render_template('My_Routes.html')
+
+
+@mvc_bp.route('/my_profile', methods=['GET', 'POST'])
+@login_required
+def my_profile():
+    form = UpdateForm(obj=current_user)
+    form.submit.label.text = 'Update'
+    if form.validate_on_submit():
+        current_user.email = form.email.data
+        current_user.name = form.name.data
+        current_user.last_name = form.last_name.data
+        current_user.company_name = form.company_name.data
+        if form.password.data:
+            current_user.password = bcrypt.generate_password_hash(form.password.data)
+        db.session.commit()
+        return redirect(url_for('mvc.my_profile'))
+
+    return render_template('My_Profile.html', form=form)
