@@ -68,6 +68,7 @@ toLast.addEventListener("click", () => {
     const selectedDestinations = Array.from(destList).map(dest => dest.innerText);
     const selectedPlan = document.getElementById("suscription_plan").value;
     const params = new URLSearchParams({destinations: selectedDestinations.join(','), plan: selectedPlan});
+
     fetch(`/api/calculate_distance_price?${params.toString()}`)
         .then(response => response.json())
         .then(data => {
@@ -90,10 +91,7 @@ document.querySelector('#travel').onsubmit = e => {
     let comment = document.getElementById('comment_input').value;
 
     let payload = {
-        comment_input: comment,
-        suscription_plan: plan,
-        destinations: data,
-        path: trajectory.getAttribute('points'),
+        comment_input: comment, suscription_plan: plan, destinations: data, path: trajectory.getAttribute('points'),
     };
 
     if (email) {

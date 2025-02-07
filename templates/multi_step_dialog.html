@@ -1,0 +1,50 @@
+<dialog id="dialog-form">
+    <h2>Please fill the form</h2>
+    <form action="/api/save_travel_route" method="POST" id="travel">
+        <div id="part1">
+            {% include 'svg_map.html' %}
+
+            <div id="current-area">
+                <h4 id="current-area-name"></h4>
+            </div>
+
+            <div id="destinations">
+                <p id="listOfProvinces">Where will we go:<br/></p>
+            </div>
+
+            <div class="form-element">
+                <input type="button" id="submit-cities" value="Next">
+            </div>
+        </div>
+        <div id="part2">
+            <table>
+                <thead>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <select id="suscription_plan">
+            </select>
+            <input type="button" style="float: right; width: 25%;" id="submit-prices" value="Next">
+        </div>
+
+        <div id="part3">
+            <div id="stats">
+                <div id="price_and_distance">
+                    <h3 id="distance_form">Total Distance: 1500 km</h3>
+                    <h3 id="price_form">Total Price: 1000 €</h3>
+                </div>
+                <div id="comment_section">
+                    {% if not current_user.is_authenticated %}
+                        <input type="email" id="email_input" placeholder="Email to send info">
+                        <hr>
+                    {% endif %}
+                    <textarea id="comment_input" placeholder="Comment for us"></textarea>
+                    <hr>
+                </div>
+            </div>
+            <input type="submit" id="submit-form" value="Submit">
+        </div>
+
+    </form>
+</dialog>

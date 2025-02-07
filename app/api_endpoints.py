@@ -5,16 +5,9 @@ from flask_login import current_user
 from flask_login import login_required
 
 from app.models import create_travel, SubscriptionPlan, TravelRoute, db, User, Destination, travel_route_destination
+from app.utils import calc_price, calc_distance
 
 api_bp = Blueprint('api', __name__)
-
-
-def calc_distance(destinations):
-    return len(destinations) * 300
-
-
-def calc_price(distance, plan):
-    return distance * plan
 
 
 @api_bp.route('/api/save_travel_route', methods=['POST'])
@@ -50,13 +43,14 @@ def calculate_travel_route():
 
 @api_bp.route('/api/calculate_distance_price', methods=['GET'])
 def calculate_distance_price():
-    destinations = request.args.getlist('destinations')
+    destinations = request.args.get('destinations')
+    destinations = destinations.split(',')
     plan_arg = request.args.get('plan')
     plan = SubscriptionPlan.query.filter_by(name=plan_arg).first()
 
     response = {
-        'price': calc_price(len(destinations), plan.price),
-        'distance': len(destinations) * 100
+        'price': calc_price(destinations, plan.price),
+        'distance': calc_distance(destinations)
     }
     return jsonify(response)
 
