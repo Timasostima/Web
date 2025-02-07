@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for
 
 from app import bcrypt
-from app.data_classes import Service, News
+from app.data_classes import Service, News, Manager, Value
 from app.forms import LoginForm, RegisterForm, UpdateForm
 from app.models import db, User, TravelRoute
 from flask_login import login_user, login_required, logout_user, current_user
@@ -37,7 +37,11 @@ def career():
 
 @mvc_bp.route('/about-us')
 def about_us():
-    return render_template("About-us.html")
+    manager_data = load_json('static/json/managers.json')
+    values_data = load_json('static/json/values.json')
+    managers = [Manager(**manager) for manager in manager_data]
+    values = [Value(**value) for value in values_data]
+    return render_template("About-us.html", values=values, managers=managers)
 
 
 @mvc_bp.route('/contact')

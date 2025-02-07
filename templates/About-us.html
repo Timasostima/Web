@@ -22,152 +22,48 @@
     <div id="corporate-values">
         <h2>OUR CORPORATE VALUES</h2>
         <div id="corporate-values-enum">
-            <div class="value-cart">
-                <hr>
-                <div class="value-cart-name">
-                    <h5>WE LISTEN TO AND HEAR OUR CLIENTS, EMPLOYEES, AND PARTNERS</h5>
-                    <img src="{{ url_for('static', filename='img/icons/users.svg') }}" alt="Users Icon">
+            {% for value in values %}
+                <div class="value-cart">
+                    <hr>
+                    <div class="value-cart-name">
+                        <h5>{{ value.title }}</h5>
+                        <img src="{{ url_for('static', filename=value.icon) }}" alt="{{ value.alt }}">
+                    </div>
+                    <p>{{ value.description }}</p>
                 </div>
-                <p>We prefer an individual approach to each client and try to keep an open dialogue with everyone.
-                    The
-                    manager takes part in all cycles of the deal and provides consulting service to the client on
-                    all
-                    issues arising during the transportation process.</p>
-            </div>
-            <div class="value-cart">
-                <hr>
-                <div class="value-cart-name">
-                    <h5>EMPLOYEES ARE OUR MOST
-                        VALUABLE RESOURCE</h5>
-                        <img src="{{ url_for('static', filename='img/icons/briefcase.svg') }}" alt="Briefcase Icon">
-                </div>
-                <p>Freight forwarding is a sphere that requires professional skills and dedication Our employees
-                    value
-                    customer's time and needs and offer different ways of problems’ solving as well as the options
-                    for
-                    transport logistics.</p>
-            </div>
-            <div class="value-cart">
-                <hr>
-                <div class="value-cart-name">
-                    <h5>WE ARE CONSTANTLY TRAINING</h5>
-                    <img src="{{ url_for('static', filename='img/icons/book.svg') }}" alt="Book Icon">
-                </div>
-                <p>The educational process in our company never ends as well as in life. We constantly invest in
-                    employee training and monitor all new solutions in the industry.</p>
-            </div>
-            <div class="value-cart">
-                <hr>
-                <div class="value-cart-name">
-                    <h5>WE ARE FOR QUALITY</h5>
-                    <img src="{{ url_for('static', filename='img/icons/award.svg') }}" alt="Award Icon">
-                </div>
-                <p>FIATA and WCA membership, agreements with the leading sea lines, terminals and agents give us the
-                    possibility to implement tasks of any level of complexity.</p>
-            </div>
-            <div class="value-cart">
-                <hr>
-                <div class="value-cart-name">
-                    <h5>HONESTY AND TRANSPARENCY</h5>
-                    <img src="{{ url_for('static', filename='img/icons/save.svg') }}" alt="Save Icon">
-                </div>
-                <p>We are interested in building long-term and mutually beneficial relationships, therefore, we are
-                    keeping an honest and open dialogue with the clients.</p>
-            </div>
+            {% endfor %}
         </div>
     </div>
 
     <div id="management-team">
         <h2>MANAGEMENT TEAM</h2>
         <div id="manager-list">
-            <div class="manager">
-                <div class="manager-photo">
-                    <div class="behind-image">
-                        <a href="#">
-                            <img src="{{ url_for('static', filename='img/icons/phone.svg') }}" alt="Phone Icon">
-                        </a>
-                        <a href="#">
-                            <img src="{{ url_for('static', filename='img/icons/send.svg') }}" alt="Send Message Icon">
-                        </a>
-                        <a href="https://www.linkedin.com/in/javier-redondo-fern%C3%A1ndez-680957285/">
-                           <img src="{{ url_for('static', filename='img/icons/linkedin.svg') }}" alt="LinkedIn Icon">
-                        </a>
+            {% for manager in managers %}
+                <div class="manager">
+                    <div class="manager-photo">
+                        <div class="behind-image">
+                            <a href="{{ manager.phone_url }}">
+                                <img src="{{ url_for('static', filename='img/icons/phone.svg') }}" alt="Phone Icon">
+                            </a>
+                            <a href="{{ manager.mail_url }}">
+                                <img src="{{ url_for('static', filename='img/icons/send.svg') }}"
+                                     alt="Send Message Icon">
+                            </a>
+                            <a href="{{ manager.linkedin_url }}">
+                                <img src="{{ url_for('static', filename='img/icons/linkedin.svg') }}"
+                                     alt="LinkedIn Icon">
+                            </a>
+                        </div>
+                        <img src="{{ url_for('static', filename='img/' + manager.image) }}" alt="manager-photo"
+                             class="actual-photo">
                     </div>
-                    <img src="{{ url_for('static', filename='img/manajer1.jpg') }}" alt="manager-photo" class="actual-photo">
-                </div>
 
-                <div class="manager-info">
-                    <h5>Sandra Buscadotes</h5>
-                    <p>Super Super Manager</p>
-                </div>
-            </div>
-
-            <div class="manager">
-                <div class="manager-photo">
-                    <div class="behind-image">
-                        <a href="#">
-                            <img src="{{ url_for('static', filename='img/icons/phone.svg') }}" alt="Phone Icon">
-                        </a>
-                        <a href="#">
-                            <img src="{{ url_for('static', filename='img/icons/send.svg') }}" alt="Send Message Icon">
-                        </a>
-                        <a href="https://www.linkedin.com/in/javier-redondo-fern%C3%A1ndez-680957285/">
-                            <img src="{{ url_for('static', filename='img/icons/linkedin.svg') }}" alt="LinkedIn Icon">
-                        </a>
+                    <div class="manager-info">
+                        <h5>{{ manager.name }}</h5>
+                        <p>{{ manager.position }}</p>
                     </div>
-                    <img src="{{ url_for('static', filename='img/manajer2.jpg') }}" alt="manager-photo" class="actual-photo">
                 </div>
-
-                <div class="manager-info">
-                    <h5>Diego Taladrador</h5>
-                    <p>Best Manager</p>
-                </div>
-            </div>
-
-            <div class="manager">
-                <div class="manager-photo">
-                    <div class="behind-image">
-                        <a href="#">
-                            <img src="{{ url_for('static', filename='img/icons/phone.svg') }}" alt="Phone Icon">
-                        </a>
-                        <a href="https://7dh.netlify.app/">
-                            <img src="{{ url_for('static', filename='img/icons/send.svg') }}" alt="Send Message Icon">
-                        </a>
-                        <a href="https://www.linkedin.com/in/javier-redondo-fern%C3%A1ndez-680957285/">
-                            <img src="{{ url_for('static', filename='img/icons/linkedin.svg') }}" alt="LinkedIn Icon">
-                        </a>
-                    </div>
-                    <img src="{{ url_for('static', filename='img/manajer3.png') }}" alt="manager-photo" class="actual-photo">
-                </div>
-
-                <div class="manager-info">
-                    <h5>Javier Cuadrado</h5>
-                    <p>Best Manager</p>
-                </div>
-            </div>
-
-            <div class="manager">
-                <div class="manager-photo">
-                    <div class="behind-image">
-                        <a href="#">
-                            <img src="{{ url_for('static', filename='img/icons/phone.svg') }}" alt="Phone Icon">
-                        </a>
-                        <a href="#">
-                            <img src="{{ url_for('static', filename='img/icons/send.svg') }}" alt="Send Message Icon">
-                        </a>
-                        <a href="https://www.linkedin.com/in/javier-redondo-fern%C3%A1ndez-680957285/">
-                            <img src="{{ url_for('static', filename='img/icons/linkedin.svg') }}" alt="LinkedIn Icon">
-                        </a>
-                    </div>
-                    <img src="{{ url_for('static', filename='img/manajer4.jpg') }}" alt="manager-photo" class="actual-photo">
-                </div>
-
-                <div class="manager-info">
-                    <h5>Francesca Enamorada</h5>
-                    <p>Best Manager</p>
-                </div>
-            </div>
-
+            {% endfor %}
         </div>
     </div>
 

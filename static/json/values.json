@@ -1,0 +1,32 @@
+[
+  {
+    "title": "WE LISTEN TO AND HEAR OUR CLIENTS, EMPLOYEES, AND PARTNERS",
+    "icon": "img/icons/users.svg",
+    "alt": "Users Icon",
+    "description": "We prefer an individual approach to each client and try to keep an open dialogue with everyone. The manager takes part in all cycles of the deal and provides consulting service to the client on all issues arising during the transportation process."
+  },
+  {
+    "title": "EMPLOYEES ARE OUR MOST VALUABLE RESOURCE",
+    "icon": "img/icons/briefcase.svg",
+    "alt": "Briefcase Icon",
+    "description": "Freight forwarding is a sphere that requires professional skills and dedication. Our employees value customer's time and needs and offer different ways of problems’ solving as well as the options for transport logistics."
+  },
+  {
+    "title": "WE ARE CONSTANTLY TRAINING",
+    "icon": "img/icons/book.svg",
+    "alt": "Book Icon",
+    "description": "The educational process in our company never ends as well as in life. We constantly invest in employee training and monitor all new solutions in the industry."
+  },
+  {
+    "title": "WE ARE FOR QUALITY",
+    "icon": "img/icons/award.svg",
+    "alt": "Award Icon",
+    "description": "FIATA and WCA membership, agreements with the leading sea lines, terminals and agents give us the possibility to implement tasks of any level of complexity."
+  },
+  {
+    "title": "HONESTY AND TRANSPARENCY",
+    "icon": "img/icons/save.svg",
+    "alt": "Save Icon",
+    "description": "We are interested in building long-term and mutually beneficial relationships, therefore, we are keeping an honest and open dialogue with the clients."
+  }
+]

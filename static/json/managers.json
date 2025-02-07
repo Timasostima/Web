@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Sandra Buscadotes",
+    "position": "Super Super Manager",
+    "image": "manajer1.jpg",
+    "phone_url": "#",
+    "mail_url": "#",
+    "linkedin_url": "https://www.linkedin.com/in/javier-redondo-fern%C3%A1ndez-680957285/"
+  },
+  {
+    "name": "Diego Taladrador",
+    "position": "Best Manager",
+    "image": "manajer2.jpg",
+    "phone_url": "#",
+    "mail_url": "#",
+    "linkedin_url": "https://www.linkedin.com/in/javier-redondo-fern%C3%A1ndez-680957285/"
+  },
+  {
+    "name": "Javier Cuadrado",
+    "position": "Best Manager",
+    "image": "manajer3.png",
+    "phone_url": "#",
+    "mail_url": "https://7dh.netlify.app/",
+    "linkedin_url": "https://www.linkedin.com/in/javier-redondo-fern%C3%A1ndez-680957285/"
+  },
+  {
+    "name": "Francesca Enamorada",
+    "position": "Best Manager",
+    "image": "manajer4.jpg",
+    "phone_url": "#",
+    "mail_url": "#",
+    "linkedin_url": "https://www.linkedin.com/in/javier-redondo-fern%C3%A1ndez-680957285/"
+  }
+]

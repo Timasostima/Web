@@ -15,3 +15,21 @@ class News:
         self.description = description
         self.link = link
         self.content = content
+
+
+class Manager:
+    def __init__(self, name, position, image, phone_url, mail_url, linkedin_url):
+        self.name = name
+        self.position = position
+        self.image = image
+        self.phone_url = phone_url
+        self.mail_url = mail_url
+        self.linkedin_url = linkedin_url
+
+
+class Value:
+    def __init__(self, title, icon, alt, description):
+        self.title = title
+        self.icon = icon
+        self.alt = alt
+        self.description = description
