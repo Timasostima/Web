@@ -1,50 +1,54 @@
 <dialog id="dialog-form">
     <h2>Please fill the form</h2>
-    <form action="/api/save_travel_route" method="POST" id="travel">
-        <div id="part1">
-            {% include 'svg_map.html' %}
+    <div id="stepper">
+        <span class="step active">Step 1</span>
+        <span class="step">Step 2</span>
+        <span class="step">Step 3</span>
+    </div>
 
+    <form action="/api/save_travel_route" method="POST" id="travel">
+        <div id="part1" class="form-step active">
+            {% include 'svg_map.html' %}
             <div id="current-area">
                 <h4 id="current-area-name"></h4>
             </div>
-
             <div id="destinations">
                 <p id="listOfProvinces">Where will we go:<br/></p>
             </div>
-
             <div class="form-element">
-                <input type="button" id="submit-cities" value="Next">
+                <button type="button" id="submit-cities">Next</button>
             </div>
         </div>
-        <div id="part2">
+
+        <div id="part2" class="form-step">
+            <h3>Select a Subscription Plan</h3>
             <table>
                 <thead>
                 </thead>
                 <tbody>
                 </tbody>
             </table>
-            <select id="suscription_plan">
+            <select id="subscription_plan">
             </select>
-            <input type="button" style="float: right; width: 25%;" id="submit-prices" value="Next">
+            <button type="button" id="submit-prices">Next</button>
         </div>
 
-        <div id="part3">
+        <div id="part3" class="form-step">
+            <h3>Review and Submit</h3>
             <div id="stats">
                 <div id="price_and_distance">
-                    <h3 id="distance_form">Total Distance: 1500 km</h3>
-                    <h3 id="price_form">Total Price: 1000 €</h3>
+                    <h4 id="distance_form">Total Distance: 1500 km</h4>
+                    <h4 id="price_form">Total Price: 1000 €</h4>
                 </div>
                 <div id="comment_section">
                     {% if not current_user.is_authenticated %}
-                        <input type="email" id="email_input" placeholder="Email to send info">
+                        <input type="email" id="email_input" placeholder="Email to send info" required>
                         <hr>
                     {% endif %}
                     <textarea id="comment_input" placeholder="Comment for us"></textarea>
-                    <hr>
                 </div>
             </div>
-            <input type="submit" id="submit-form" value="Submit">
+            <button type="submit" id="submit-form">Submit</button>
         </div>
-
     </form>
 </dialog>

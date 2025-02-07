@@ -16,10 +16,10 @@ def save_travel_route():
 
     email = data.get('email_input')
     if email:
-        create_travel(data['suscription_plan'], data['destinations'], data['comment_input'], email=email)
+        create_travel(data['subscription_plan'], data['destinations'], data['comment_input'], email=email)
     else:
-        create_travel(data['suscription_plan'], data['destinations'], data['comment_input'], user_id=current_user.id)
-    return jsonify("data")
+        create_travel(data['subscription_plan'], data['destinations'], data['comment_input'], user_id=current_user.id)
+    return jsonify('ok'), 200
 
 
 @api_bp.route('/api/calculate_travel_route', methods=['GET'])

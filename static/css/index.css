@@ -86,171 +86,356 @@
   }
 }
 
-#part1 {
-  display: grid;
-  grid-template-columns: var(--mapProp2) 1fr;
-  grid-template-rows: 5fr 1fr;
-  grid-template-areas:
-    "a b"
-    "a c";
-  width: 100%;
 
-  margin: 0 auto;
-  aspect-ratio: 466 / calc(374 - 374 * 1 / (var(--mapProp) + 1));
+:root {
+  --step-active: var(--brown);
+  --active-land: #ffa37f;
+  --inactive-land: #a2a2a2;
+  --padding: 15px;
+  --transition-time: 0.3s;
 }
 
-#part1 > * {
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+#dialog-form {
+  width: 80%;
+  max-width: 800px;
+  padding: var(--padding);
   border-radius: 10px;
-}
+  background-color: var(--active-land);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  animation: fadeIn var(--transition-time) ease-in-out;
 
-#spain-map {
-  grid-area: a;
-
-  [id^="tec"] {
-    fill: rgba(0, 0, 0, 0);
+  &:has(#part2.active){
+    max-width: 700px;
+  }
+  &:has(#part3.active){
+    max-width: 600px;
   }
 
-  [id^="ex"] {
-    fill: var(--brown);
-    stroke: #787878;
-    stroke-opacity: 1;
-    stroke-width: 1;
+  .form-step {
+    display: none;
   }
 
-  [id="rectcanarias"] {
-    stroke: #787878;
-    stroke-width: 4;
-    fill: var(--red);
+  .form-step.active {
+    display: block;
   }
 
-  [id^="pr"],
-  [id^="en"],
-  [id^="is"] {
-    fill: var(--brown);
-    fill-opacity: 1;
-
-    stroke: #787878;
-    stroke-opacity: 1;
-    stroke-width: 1;
-
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-miterlimit: 4;
-    stroke-dasharray: none;
-
-    transform-origin: bottom;
-    transform-box: fill-box;
-    transition: 0.5s;
-  }
-
-  [id^="pr"].ac,
-  [id^="is"].ac {
-    fill: var(--orange);
-  }
-
-  [id^="pr"]:hover,
-  [id^="en"]:hover,
-  [id^="is"]:hover {
-    transform: scale(1.05);
-    z-index: 100;
-    filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, .7));
-    transition: 0.2s;
-  }
-}
-
-.lines {
-  grid-area: a;
-  pointer-events: none;
-}
-
-#trajectory {
-  stroke: var(--white);
-  stroke-dasharray: 5, 5;
-}
-
-#destinations {
-  padding: 5px;
-  background-color: var(--brown);
-  grid-area: b;
-  overflow-y: auto;
-
-  *:not(#listOfProvinces) {
+  h2 {
     text-align: center;
+    color: var(--white);
+    margin-bottom: 10px;
+  }
+
+  button {
+    padding: 10px 20px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--red);
+    /*color: var(--dark-background);*/
+    border: none;
     border-radius: 5px;
-    margin: 0.5rem;
-    padding: 0.1rem;
-    border: 2px solid var(--white);
-    cursor: grab;
-  }
-}
+    cursor: pointer;
+    font-size: 1rem;
+    transition: var(--transition-time);
 
-#current-area {
-  grid-area: a;
-  width: fit-content;
-  height: fit-content;
-  margin: 0.5rem 0.5rem auto auto;
-
-  background-color: var(--brown);
-  outline: 2px solid var(--white);
-  pointer-events: none;
-
-  #current-area-name {
-    padding: 0.2em;
-  }
-}
-
-#part2 {
-  > table {
-    border-collapse: collapse;
-    width: 100%;
-    margin-bottom: 1rem;
-
-    & tbody tr:not(:last-child) td:not(:first-child) {
-      border-bottom: 1px solid var(--white);
-    }
-
-    & * {
-      padding: 2px;
-      width: 25%;
-
-      & td {
-        padding: 10px 0;
-      }
-
-      & td:nth-child(2) {
-        background-color: rgba(255, 205, 241, 0.1);
-      }
-
-      & td:nth-child(3) {
-        background-color: rgba(252, 231, 0, 0.1);
-      }
-
-      & td:nth-child(4) {
-        background-color: rgba(255, 77, 0, 0.1);
-      }
-    }
-
-    & tbody td:not(:first-child) {
-      text-align: center;
+    &:hover {
+      background-color: var(--brown);
     }
   }
-}
 
-#part3 {
-  & h3 {
-    margin: 0.7rem 0;
-    text-align: start;
-    font-size: 22px;
-  }
-
-  & hr {
-    margin: 0;
-    width: 100%;
-  }
-
-  & #stats {
-    margin-bottom: 0.6rem;
+  #stepper {
     display: flex;
     justify-content: space-between;
+    margin: 20px 0;
+    opacity: 0.75;
+
+    .step {
+      padding: 10px;
+      background-color: var(--inactive-land);
+      border-radius: 5px;
+      text-align: center;
+      flex-grow: 1;
+      margin-right: 5px;
+      color: black;
+      cursor: default;
+
+      transition: var(--transition-time);
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &:has(~ .active) {
+        background-color: var(--white);
+        color: black;
+        cursor: pointer;
+      }
+
+      &.active {
+        background-color: var(--step-active);
+        color: var(--white);
+      }
+    }
+  }
+
+  #part1.active {
+    display: grid;
+    grid-template-columns: var(--mapProp2) 1fr;
+    grid-template-rows: 5fr 1fr;
+    grid-template-areas:
+    "a b"
+    "a c";
+    width: 100%;
+
+    margin: 0 auto;
+    aspect-ratio: 466 / calc(374 - 374 * 1 / (var(--mapProp) + 1));
+
+
+    > * {
+      border-radius: 10px;
+    }
+
+    #spain-map {
+      grid-area: a;
+      background-color: lightblue;
+      border-radius: 10px 0 0 10px;
+
+      [id^="tec"] {
+        fill: rgba(0, 0, 0, 0);
+      }
+
+      [id^="ex"] {
+        fill: var(--inactive-land);
+        stroke: #787878;
+        stroke-opacity: 1;
+        stroke-width: 1;
+      }
+
+      [id="rectcanarias"] {
+        stroke: #787878;
+        stroke-width: 4;
+        fill: lightblue;
+      }
+
+      [id^="pr"],
+      [id^="en"],
+      [id^="is"] {
+        fill: var(--active-land);
+        fill-opacity: 1;
+
+        stroke: #787878;
+        stroke-opacity: 1;
+        stroke-width: 1;
+
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-miterlimit: 4;
+        stroke-dasharray: none;
+
+        transform-origin: bottom;
+        transform-box: fill-box;
+        transition: 0.5s;
+      }
+
+      [id^="pr"].ac,
+      [id^="is"].ac {
+        fill: var(--orange);
+      }
+
+      [id^="pr"]:hover,
+      [id^="en"]:hover,
+      [id^="is"]:hover {
+        transform: scale(1.05);
+        z-index: 100;
+        filter: drop-shadow(0px 0px 3px rgba(0, 0, 0, .7));
+        transition: 0.2s;
+      }
+    }
+
+    .lines {
+      grid-area: a;
+      pointer-events: none;
+    }
+
+    #trajectory {
+      stroke: var(--white);
+      stroke-dasharray: 5, 5;
+    }
+
+    #destinations {
+      padding: 5px;
+      background-color: var(--orange);
+      grid-area: b;
+      border-radius: 0 10px 0 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+
+      *:not(#listOfProvinces) {
+        text-align: center;
+        border-radius: 5px;
+        margin: 0.5rem auto;
+        padding: 0.1rem;
+        background-color: var(--active-land);
+        cursor: grab;
+      }
+    }
+
+    #current-area {
+      grid-area: a;
+      width: fit-content;
+      height: fit-content;
+      margin: 0.5rem 0.5rem auto auto;
+
+      background-color: var(--orange);
+      pointer-events: none;
+
+      #current-area-name {
+        padding: 0.2em;
+      }
+    }
+
+    button {
+      border-radius: 0 0 10px 0;
+    }
+  }
+
+  #part2.active {
+    h3{
+      margin: 0.7rem 0;
+      text-align: center;
+      font-size: 22px;
+    }
+    > table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+
+      tbody tr:not(:last-child) td {
+        border-bottom: 1px solid var(--white);
+      }
+
+      /*table th, table td {*/
+      /*  padding: 10px;*/
+      /*  text-align: center;*/
+      /*}*/
+
+      tbody tr:hover {
+        background-color: var(--orange);
+      }
+
+      * {
+        padding: 2px;
+        width: 25%;
+
+        th {
+          padding: 10px 0;
+
+          &:nth-child(2) {
+            background-color: rgba(225, 133, 40, 0.8);
+          }
+
+          &:nth-child(3) {
+            background-color: rgba(178, 13, 13, 0.8);
+          }
+
+          &:nth-child(4) {
+            background-color: rgba(24, 201, 154, 0.8);
+          }
+        }
+
+        td {
+          padding: 10px 0;
+
+          &:nth-child(2) {
+            background-color: rgba(225, 133, 40, 0.3);
+          }
+
+          &:nth-child(3) {
+            background-color: rgba(178, 13, 13, 0.3);
+          }
+
+          &:nth-child(4) {
+            background-color: rgba(24, 201, 154, 0.3);
+          }
+        }
+      }
+
+      tbody td:not(:first-child) {
+        text-align: center;
+      }
+    }
+  }
+
+  #part3.active {
+    h3 {
+      margin: 0.7rem 0;
+      text-align: center;
+      font-size: 22px;
+    }
+
+    hr {
+      margin: 0;
+      width: 100%;
+    }
+
+    #stats {
+      margin-bottom: 0.6rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    #price_and_distance {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+    #comment_section {
+      height: 100%;
+    }
+    #email_input {
+      height: fit-content;
+      padding: 0 10px;
+    }
+  }
+}
+
+select, input[type="email"], textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  /*border: 1px solid var(--brown-dark);*/
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+textarea{
+  background-color: rgba(126, 126, 126, 0.5);
+  height: max-content;
+}
+
+@media (max-width: 850px) {
+  #dialog-form {
+    width: 95%;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    button {
+      width: 100%;
+    }
   }
 }

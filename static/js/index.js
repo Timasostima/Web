@@ -1,29 +1,51 @@
-const dialog = document.querySelector("#dialog-form");
-const showButton = document.querySelector("#calculate-shipment");
-const toPrices = document.querySelector('#submit-cities');
-const toLast = document.querySelector('#submit-prices');
+const steps = document.querySelectorAll('.form-step');
+const stepIndicators = document.querySelectorAll('.step');
+const dialogForm = document.getElementById('dialog-form');
+const travelForm = document.getElementById('travel');
+let currentStep = 0;
+const totalSteps = steps.length;
+
+const btnNextCities = document.getElementById('submit-cities');
+const btnNextPrices = document.getElementById('submit-prices');
 
 
-showButton.addEventListener("click", () => {
-    dialog.showModal()
-    const prices = document.getElementById("part2")
-    prices.style.display = "none"
-    const lastForm = document.getElementById("part3")
-    lastForm.style.display = "none"
+document.getElementById('calculate-shipment').addEventListener('click', () => {
+    dialogForm.showModal();
 })
 
-toPrices.addEventListener("click", () => {
-    const dests = document.getElementById("part1")
-    dests.style.display = "none"
-    const prices = document.getElementById("part2")
-    prices.style.display = "block"
-    dialog.style.width = "40%"
+function goToNextStep() {
+    steps[currentStep].classList.remove('active');
+    stepIndicators[currentStep].classList.remove('active');
+    currentStep++;
+    if (currentStep >= totalSteps) {
+        currentStep = 0;
+    }
+    steps[currentStep].classList.add('active');
+    stepIndicators[currentStep].classList.add('active');
+}
 
+function goToFirstStep() {
+    steps[currentStep].classList.remove('active');
+    stepIndicators[currentStep].classList.remove('active');
+    currentStep = 0;
+    steps[currentStep].classList.add('active');
+    stepIndicators[currentStep].classList.add('active');
+}
+
+btnNextCities.addEventListener('click', () => {
+    const prices = document.getElementById("part2")
     const selectedDestinations = Array.from(destList).map(dest => dest.innerText);
     const params = new URLSearchParams({destinations: selectedDestinations.join(',')});
+
+    if (selectedDestinations.length < 3) {
+        alert("Please select at least two destinations.");
+        return;
+    }
+
     fetch(`/api/calculate_travel_route?${params.toString()}`)
         .then(response => response.json())
         .then(data => {
+            console.log(data);
             const thead = prices.querySelector("thead");
             const tbody = prices.querySelector("tbody");
             thead.innerHTML = "";
@@ -32,7 +54,7 @@ toPrices.addEventListener("click", () => {
             const headerRow = document.createElement("tr");
             headerRow.innerHTML = `
                 <td></td>
-                ${data.map(plan => `<th style="background-color: rgba(250,171,81,0.82);">${plan.name}</th>`).join('')}
+                ${data.map(plan => `<th>${plan.name}</th>`).join('')}
             `;
             thead.appendChild(headerRow);
 
@@ -46,7 +68,7 @@ toPrices.addEventListener("click", () => {
                 tbody.appendChild(row);
             });
 
-            const subscriptionSelect = document.getElementById("suscription_plan");
+            const subscriptionSelect = document.getElementById("subscription_plan");
             subscriptionSelect.innerHTML = "";
             data.forEach(plan => {
                 const option = document.createElement("option");
@@ -56,17 +78,12 @@ toPrices.addEventListener("click", () => {
             });
         })
         .catch(error => console.error('Error:', error));
-})
+    goToNextStep();
+});
 
-toLast.addEventListener("click", () => {
-    const prices = document.getElementById("part2")
-    prices.style.display = "none"
-    const lastForm = document.getElementById("part3")
-    lastForm.style.display = "block"
-    dialog.style.width = "30%"
-
+btnNextPrices.addEventListener('click', () => {
     const selectedDestinations = Array.from(destList).map(dest => dest.innerText);
-    const selectedPlan = document.getElementById("suscription_plan").value;
+    const selectedPlan = document.getElementById("subscription_plan").value;
     const params = new URLSearchParams({destinations: selectedDestinations.join(','), plan: selectedPlan});
 
     fetch(`/api/calculate_distance_price?${params.toString()}`)
@@ -76,22 +93,36 @@ toLast.addEventListener("click", () => {
             document.getElementById("price_form").textContent = `Total Price: ${data.price} €`;
         })
         .catch(error => console.error('Error:', error));
-})
+    goToNextStep();
+});
 
-document.querySelector('#travel').onsubmit = e => {
-    e.preventDefault();
+function resetForm() {
+    let points = trajectory.getAttribute("points")
+    points.replace(points, '')
+    trajectory.setAttributeNS(null, "points", points)
+    destList = destinations.children
+    for (let i = 0; i < destList.length; i++) {
+        destList[i].remove()
+    }
+    travelForm.reset()
+    dialogForm.close()
+}
+
+travelForm.addEventListener('submit', (event) => {
+    event.preventDefault();
 
     let data = [];
     for (let i = 1; i < destList.length; i++) {
         data.push(destList[i].innerText);
     }
 
-    let plan = document.getElementById('suscription_plan').value;
+    let plan = document.getElementById('subscription_plan').value;
     let email = document.getElementById('email_input');
     let comment = document.getElementById('comment_input').value;
+    let points = trajectory.getAttribute('points');
 
     let payload = {
-        comment_input: comment, suscription_plan: plan, destinations: data, path: trajectory.getAttribute('points'),
+        comment_input: comment, subscription_plan: plan, destinations: data, path: points,
     };
 
     if (email) {
@@ -107,14 +138,33 @@ document.querySelector('#travel').onsubmit = e => {
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            alert("Done");
+            alert("Form submitted successfully!")
         })
         .catch(error => console.error('Error:', error));
 
-    e.target.reset();
-    dialog.close();
-    return false;
-}
+    resetForm()
+    goToNextStep()
+});
+
+dialogForm.addEventListener('cancel', (e) => {
+    e.preventDefault();
+    if (confirm("Are you sure you want to close the form? Unsaved changes will be lost.")) {
+        resetForm();
+        goToFirstStep();
+    }
+});
+
+stepIndicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => {
+        if (index <= currentStep) {
+            steps[currentStep].classList.remove('active');
+            stepIndicators[currentStep].classList.remove('active');
+            currentStep = index;
+            steps[currentStep].classList.add('active');
+            stepIndicators[currentStep].classList.add('active');
+        }
+    });
+});
 
 const areas = document.querySelectorAll('[id^="pr_"], [id^="is_"]')
 const color = document.querySelector('[id^="pr_"]').style.fill
@@ -146,11 +196,11 @@ let clickFun = function () {
     let Xcenter = bboxRect.getAttribute("width") / 2 + Number(bboxRect.getAttribute('x'))
     let Ycenter = bboxRect.getAttribute("height") / 2 + Number(bboxRect.getAttribute('y'))
 
-    newPoint = ` ${Xcenter},${Ycenter}`
-    let point = trajectory.getAttribute("points")
+    let newPoint = ` ${Xcenter},${Ycenter}`
+    let points = trajectory.getAttribute("points")
 
-    if (!point.includes(newPoint)) {
-        point += newPoint
+    if (!points.includes(newPoint)) {
+        points += newPoint
 
         const newElement = document.createElement('p')
         newElement.innerHTML = name
@@ -159,12 +209,12 @@ let clickFun = function () {
         destinations.appendChild(newElement)
     } else {
         const chToRem = document.getElementById(name)
-        point = point.replace(newPoint, '')
+        points = points.replace(newPoint, '')
         chToRem.remove()
     }
 
     this.classList.toggle("ac");
-    trajectory.setAttributeNS(null, "points", point);
+    trajectory.setAttributeNS(null, "points", points);
 }
 
 let mouseOn = function () {
