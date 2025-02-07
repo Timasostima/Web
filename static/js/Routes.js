@@ -46,7 +46,7 @@ function createRouteCard(route) {
 
     startDest = destinations[0]
     endDest = destinations[destinations.length - 1]
-    startImagePath = `../static/img/cities/${startDest}.jpg`
+    startImagePath = `../static/img/cities/${startDest.split(" ").join("_")}.jpg`
     endImagePath = `../static/img/cities/${endDest}.jpg`
     rightSide.className = 'right_side';
     rightSide.innerHTML = `

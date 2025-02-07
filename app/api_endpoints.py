@@ -98,7 +98,7 @@ def get_routes(user_id):
             })
 
     for route in res2:
-        route['price'] = calc_price(len(route['destinations']), route['price_km'])
+        route['price'] = calc_price(route['destinations'], route['price_km'])
         route['distance'] = calc_distance(route['destinations'])
         route.pop('price_km')
 
