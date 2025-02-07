@@ -54,8 +54,6 @@
       aspect-ratio: 1/1;
       object-fit: contain;
       flex-shrink: 0;
-
-      filter: invert();
     }
   }
 
