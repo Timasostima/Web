@@ -1,0 +1,123 @@
+[
+    {
+        "id": 1,
+        "title": "Sales Manager",
+        "localization": "Kyiv, Ukraine",
+        "job_description": "Responsible for managing sales and client relationships. The Sales Manager will develop and implement sales strategies, identify new business opportunities, and maintain relationships with key clients. This role requires a deep understanding of market trends, excellent negotiation skills, and the ability to work collaboratively with other departments to achieve company goals. The ideal candidate will have a proven track record in sales, strong leadership abilities, and a passion for driving business growth.",
+        "requirements": [
+            "Minimum of 5 years of experience in sales, preferably in a managerial role.",
+            "Excellent communication and interpersonal skills, with the ability to build and maintain relationships with clients.",
+            "Strong leadership and team management skills, with a proven ability to motivate and guide a sales team.",
+            "In-depth knowledge of market trends and the ability to develop effective sales strategies.",
+            "Excellent negotiation skills and the ability to close deals effectively.",
+            "Ability to work collaboratively with other departments to achieve company goals."
+        ],
+        "recruiter_email": "placeholder@gmail.com",
+        "recruiter_name": "John Doe"
+    },
+    {
+        "id": 2,
+        "title": "Logistics Coordinator",
+        "localization": "Odesa, Ukraine",
+        "job_description": "Coordinate logistics and supply chain operations. The Logistics Coordinator will oversee the entire supply chain process, from procurement to delivery. This includes managing inventory levels, coordinating with suppliers and transporters, and ensuring timely delivery of goods. The role requires strong organizational skills, attention to detail, and the ability to handle multiple tasks simultaneously. The ideal candidate will have experience in logistics, excellent problem-solving abilities, and a commitment to maintaining high standards of efficiency and accuracy.",
+        "requirements": [
+            "Minimum of 3 years of experience in logistics or supply chain management.",
+            "Strong organizational skills and attention to detail.",
+            "Ability to handle multiple tasks simultaneously and work under pressure.",
+            "Experience in managing inventory levels and coordinating with suppliers and transporters.",
+            "Excellent problem-solving abilities and a commitment to maintaining high standards of efficiency and accuracy."
+        ],
+        "recruiter_email": "placeholder@gmail.com",
+        "recruiter_name": "Jane Smith"
+    },
+    {
+        "id": 3,
+        "title": "Sea Freight Specialist",
+        "localization": "Kyiv, Ukraine",
+        "job_description": "Manage sea freight operations and documentation. The Sea Freight Specialist will be responsible for coordinating sea freight shipments, ensuring compliance with international shipping regulations, and maintaining accurate documentation. This role requires a thorough understanding of sea freight procedures, excellent organizational skills, and the ability to work under pressure. The ideal candidate will have experience in sea freight operations, strong attention to detail, and the ability to communicate effectively with clients and partners.",
+        "requirements": [
+            "Minimum of 3 years of experience in sea freight operations.",
+            "Thorough understanding of sea freight procedures and international shipping regulations.",
+            "Excellent organizational skills and attention to detail.",
+            "Ability to work under pressure and handle multiple tasks simultaneously.",
+            "Strong communication skills and the ability to communicate effectively with clients and partners."
+        ],
+        "recruiter_email": "placeholder@gmail.com",
+        "recruiter_name": "John Doe"
+    },
+    {
+        "id": 4,
+        "title": "Railway Operations Manager",
+        "localization": "Odesa, Ukraine",
+        "job_description": "Oversee railway transportation and operations. The Railway Operations Manager will be responsible for managing the day-to-day operations of railway transportation, ensuring the safe and efficient movement of goods. This includes coordinating with railway authorities, managing schedules, and overseeing the maintenance of railway equipment. The role requires strong leadership skills, a deep understanding of railway operations, and the ability to make quick decisions in a fast-paced environment. The ideal candidate will have experience in railway operations, excellent problem-solving abilities, and a commitment to safety and efficiency.",
+        "requirements": [
+            "Minimum of 5 years of experience in railway operations.",
+            "Strong leadership skills and the ability to manage a team effectively.",
+            "Deep understanding of railway operations and transportation regulations.",
+            "Excellent problem-solving abilities and the ability to make quick decisions in a fast-paced environment.",
+            "Commitment to safety and efficiency in railway operations."
+        ],
+        "recruiter_email": "placeholder@gmail.com",
+        "recruiter_name": "Jane Smith"
+    },
+    {
+        "id": 5,
+        "title": "Air Freight Specialist",
+        "localization": "Kyiv, Ukraine",
+        "job_description": "Handle air freight logistics and customer service. The Air Freight Specialist will be responsible for coordinating air freight shipments, ensuring compliance with international aviation regulations, and providing excellent customer service. This role requires a thorough understanding of air freight logistics, strong organizational skills, and the ability to handle customer inquiries and issues. The ideal candidate will have experience in air freight logistics, excellent communication skills, and a commitment to providing high-quality service.",
+        "requirements": [
+            "Minimum of 3 years of experience in air freight logistics.",
+            "Thorough understanding of air freight logistics and international aviation regulations.",
+            "Strong organizational skills and attention to detail.",
+            "Ability to handle customer inquiries and issues effectively.",
+            "Excellent communication skills and a commitment to providing high-quality service."
+        ],
+        "recruiter_email": "placeholder@gmail.com",
+        "recruiter_name": "John Doe"
+    },
+    {
+        "id": 6,
+        "title": "Customer Service Representative",
+        "localization": "Odesa, Ukraine",
+        "job_description": "Provide customer support and handle inquiries. The Customer Service Representative will be responsible for assisting customers with their inquiries, resolving issues, and providing information about products and services. This role requires excellent communication skills, strong problem-solving abilities, and the ability to work in a fast-paced environment. The ideal candidate will have experience in customer service, a positive attitude, and a commitment to providing exceptional service.",
+        "requirements": [
+            "Minimum of 2 years of experience in customer service.",
+            "Excellent communication and interpersonal skills.",
+            "Strong problem-solving abilities and the ability to handle customer issues effectively.",
+            "Ability to work in a fast-paced environment and handle multiple tasks simultaneously.",
+            "Positive attitude and a commitment to providing exceptional service."
+        ],
+        "recruiter_email": "placeholder@gmail.com",
+        "recruiter_name": "Jane Smith"
+    },
+    {
+        "id": 7,
+        "title": "Warehouse Manager",
+        "localization": "Kyiv, Ukraine",
+        "job_description": "Manage warehouse operations and inventory. The Warehouse Manager will be responsible for overseeing the daily operations of the warehouse, including inventory management, order fulfillment, and staff supervision. This role requires strong organizational skills, attention to detail, and the ability to manage a team effectively. The ideal candidate will have experience in warehouse management, excellent leadership abilities, and a commitment to maintaining high standards of efficiency and accuracy.",
+        "requirements": [
+            "Minimum of 5 years of experience in warehouse management.",
+            "Strong organizational skills and attention to detail.",
+            "Ability to manage a team effectively and oversee daily warehouse operations.",
+            "Experience in inventory management and order fulfillment.",
+            "Excellent leadership abilities and a commitment to maintaining high standards of efficiency and accuracy."
+        ],
+        "recruiter_email": "placeholder@gmail.com",
+        "recruiter_name": "John Doe"
+    },
+    {
+        "id": 8,
+        "title": "Transport Planner",
+        "localization": "Odesa, Ukraine",
+        "job_description": "Plan and coordinate transportation routes. The Transport Planner will be responsible for developing and implementing transportation plans, optimizing routes, and coordinating with transport providers. This role requires strong analytical skills, attention to detail, and the ability to work collaboratively with other departments. The ideal candidate will have experience in transport planning, excellent problem-solving abilities, and a commitment to improving transportation efficiency.",
+        "requirements": [
+            "Minimum of 3 years of experience in transport planning.",
+            "Strong analytical skills and attention to detail.",
+            "Ability to develop and implement transportation plans effectively.",
+            "Experience in optimizing routes and coordinating with transport providers.",
+            "Excellent problem-solving abilities and a commitment to improving transportation efficiency."
+        ],
+        "recruiter_email": "placeholder@gmail.com",
+        "recruiter_name": "Jane Smith"
+    }
+]

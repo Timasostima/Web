@@ -33,3 +33,14 @@ class Value:
         self.icon = icon
         self.alt = alt
         self.description = description
+
+
+class Vacancy:
+    def __init__(self, id, title, localization, job_description, requirements, recruiter_email, recruiter_name):
+        self.id = id
+        self.title = title
+        self.localization = localization
+        self.job_description = job_description
+        self.requirements = requirements
+        self.recruiter_email = recruiter_email
+        self.recruiter_name = recruiter_name

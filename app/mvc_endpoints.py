@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for
 
 from app import bcrypt
-from app.data_classes import Service, News, Manager, Value
+from app.data_classes import Service, News, Manager, Value, Vacancy
 from app.forms import LoginForm, RegisterForm, UpdateForm
 from app.models import db, User, TravelRoute
 from flask_login import login_user, login_required, logout_user, current_user
@@ -32,7 +32,17 @@ def news():
 
 @mvc_bp.route('/career')
 def career():
-    return render_template("Career.html")
+    vacancies_data = load_json('static/json/vacancies.json')
+    vacancies = [Vacancy(**vacancy) for vacancy in vacancies_data]
+    return render_template("Career.html", vacancies=vacancies)
+
+
+@mvc_bp.route('/vacancy/<int:vacancy_id>')
+@login_required
+def vacancy(vacancy_id):
+    vacancies_data = load_json('static/json/vacancies.json')
+    vacancy = [Vacancy(**vacancy) for vacancy in vacancies_data if vacancy['id'] == vacancy_id][0]
+    return render_template("Vacancy.html", vacancy=vacancy)
 
 
 @mvc_bp.route('/about-us')

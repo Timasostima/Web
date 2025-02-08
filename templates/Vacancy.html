@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block specific_styles %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Vacancy.css') }}">
+{% endblock %}
+
+{% block title %}Vacancy {{ vacancy.id }}{% endblock %}
+
+{% block content %}
+    <div class="vacancy">
+        <h1 class="title">{{ vacancy.title }}</h1>
+        <p class="localization">{{ vacancy.localization }}</p>
+        <p class="job-description">{{ vacancy.job_description }}</p>
+        <h2>Requirements:</h2>
+        <ul class="requirements">
+            {% for requirement in vacancy.requirements %}
+                <li>{{ requirement }}</li>
+            {% endfor %}
+        </ul>
+        <p class="recruiter">Recruiter: {{ vacancy.recruiter_name }}</p>
+        <p class="email">Email: <a href="mailto:{{ vacancy.recruiter_email }}">{{ vacancy.recruiter_email }}</a></p>
+    </div>
+{% endblock %}

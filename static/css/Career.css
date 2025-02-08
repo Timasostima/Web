@@ -36,6 +36,7 @@ h2 {
   .vacancy {
     width: 80%;
     border-radius: 20px;
+    cursor: pointer;
 
     padding: 0.5rem;
     display: flex;

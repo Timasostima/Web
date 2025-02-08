@@ -1,0 +1,64 @@
+.vacancy {
+    background-color: var(--brown);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+    width: 100%;
+    margin: 40px auto;
+    font-family: 'Arial', sans-serif;
+    color: #ffffff;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #ffcc00;
+}
+
+.localization {
+    font-size: 18px;
+    color: #e0e0e0;
+    margin-bottom: 2rem;
+}
+
+.job-description {
+    font-size: 16px;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    color: #f0f0f0;
+}
+
+h2 {
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #ffcc00;
+}
+
+.requirements {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin-bottom: 2rem;
+}
+
+.requirements li {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #f0f0f0;
+}
+
+.recruiter, .email {
+    font-size: 16px;
+    margin: 10px 0;
+    color: #e0e0e0;
+}
+
+.email a {
+    color: #ffcc00;
+    text-decoration: none;
+}
+
+.email a:hover {
+    text-decoration: underline;
+}
