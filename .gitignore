@@ -1,6 +1,6 @@
 *.db
 *.env
-**/cities
+#**/cities
 scraper.py
 
 # Byte-compiled / optimized / DLL files
