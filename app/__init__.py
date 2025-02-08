@@ -1,6 +1,5 @@
 from flask import Flask
-from flask_bcrypt import Bcrypt
-from flask_login import LoginManager
+from flask_cors import CORS
 
 from app.api_endpoints import api_bp
 from app.extensions import bcrypt, login_manager
@@ -11,6 +10,7 @@ from app.mvc_endpoints import mvc_bp
 def create_app(config_class='config.Config'):
     app = Flask(__name__, static_folder='../static', template_folder='../templates')
     app.config.from_object(config_class)
+    CORS(app)
 
     db.init_app(app)
     bcrypt.init_app(app)
@@ -18,7 +18,7 @@ def create_app(config_class='config.Config'):
     login_manager.login_view = 'mvc.login'
 
     app.register_blueprint(mvc_bp)
-    app.register_blueprint(api_bp)
+    app.register_blueprint(api_bp, url_prefix='/api')
 
     with app.app_context():
         db.create_all()

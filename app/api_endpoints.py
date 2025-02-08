@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 
-from flask import Blueprint, render_template, redirect, url_for, request, jsonify
+from flask import Blueprint, request, jsonify
+from flask_cors import cross_origin
 from flask_login import current_user
 from flask_login import login_required
 
@@ -10,7 +11,7 @@ from app.utils import calc_price, calc_distance
 api_bp = Blueprint('api', __name__)
 
 
-@api_bp.route('/api/save_travel_route', methods=['POST'])
+@api_bp.route('/save_travel_route', methods=['POST'])
 def save_travel_route():
     data = request.get_json()
 
@@ -22,7 +23,7 @@ def save_travel_route():
     return jsonify('ok'), 200
 
 
-@api_bp.route('/api/calculate_travel_route', methods=['GET'])
+@api_bp.route('/calculate_travel_route', methods=['GET'])
 def calculate_travel_route():
     destinations = request.args.get('destinations')
     destinations = destinations.split(',')
@@ -41,7 +42,7 @@ def calculate_travel_route():
     return jsonify(response)
 
 
-@api_bp.route('/api/calculate_distance_price', methods=['GET'])
+@api_bp.route('/calculate_distance_price', methods=['GET'])
 def calculate_distance_price():
     destinations = request.args.get('destinations')
     destinations = destinations.split(',')
@@ -77,8 +78,9 @@ def query_routes(user_id):
     return res
 
 
-@api_bp.route('/api/get_routes/<int:user_id>', methods=['GET'])
-# @login_required
+@cross_origin()
+@api_bp.route('/get_routes/<int:user_id>', methods=['GET'])
+@login_required
 def get_routes(user_id):
     res = query_routes(user_id)
 
@@ -102,12 +104,10 @@ def get_routes(user_id):
         route['distance'] = calc_distance(route['destinations'])
         route.pop('price_km')
 
-    # print(res2)
     return jsonify(res2)
 
 
-@api_bp.route('/api/get_route_data/<int:user_id>', methods=['GET'])
-# @login_required
+@api_bp.route('/get_route_data/<int:user_id>', methods=['GET'])
 def get_route_data(user_id):
     res = query_routes(user_id)
 
@@ -140,6 +140,5 @@ def get_route_data(user_id):
             res3['suscription_data'][plan] += 1
         else:
             res3['suscription_data'][plan] = 1
-    print(res3)
 
     return jsonify(res3)

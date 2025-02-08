@@ -10,7 +10,7 @@ document.getElementById('save').addEventListener('click', () => {
 })
 
 window.onload = () => {
-    fetch(`http://127.0.0.1:5000/api/get_route_data/${userId}`)
+    fetch(`/api/get_route_data/${userId}`)
         .then(response => response.json())
         .then(metadata => {
             console.log(metadata)

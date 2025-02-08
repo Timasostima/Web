@@ -74,13 +74,14 @@ canvas {
   display: flex;
   justify-content: space-around;
   align-items: center;
+  cursor: pointer;
 
   span {
     font-size: 35px;
   }
-  /*#open_routes {*/
-  /*  display: none;*/
-  /*}*/
+  &:hover #open_routes{
+    filter: invert(90%) invert(10%) sepia(43%) saturate(6683%) hue-rotate(348deg) brightness(83%) contrast(87%);
+  }
 }
 
 @keyframes blink {
