@@ -13,18 +13,20 @@ window.onload = () => {
     fetch(`/api/get_route_data/${userId}`)
         .then(response => response.json())
         .then(metadata => {
-            console.log(metadata)
             let routes_info = document.getElementById('routes_info')
             routes_info.innerHTML = `<h3><span>${metadata['total_distance']}</span> km in total</h3>` + routes_info.innerHTML
             routes_info.innerHTML = `<h3><span>${metadata['in_progress']}</span> Active routes</h3>` + routes_info.innerHTML
             routes_info.innerHTML = `<h3><span>${metadata['total_routes']}</span> Total Routes</h3>` + routes_info.innerHTML
 
-            let plans = metadata['suscription_data']
+            let plans = metadata['subscription_data']
+            let labels = ['Standard', 'Premium', 'Ultra'];
+            let values = [plans['Standard'], plans['Premium'], plans['Ultra']];
+
             const ctx = document.getElementById('chartsCanvas').getContext('2d')
             const data = {
-                labels: Object.keys(plans), datasets: [{
+                labels: labels, datasets: [{
                     label: 'My First Dataset',
-                    data: Object.values(plans),
+                    data: values,
                     backgroundColor: ['rgb(225,133,40)', 'rgb(178,13,13)', 'rgb(24,201,154)'],
                     hoverOffset: 4
                 }]

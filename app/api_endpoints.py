@@ -131,14 +131,18 @@ def get_route_data(user_id):
         'total_routes': len(res2),
         'in_progress': sum(1 for e in res2 if e['in_progress']),
         'total_distance': sum(e['distance'] for e in res2),
-        'suscription_data': {}
+        'subscription_data': {}
     }
 
     for route in res2:
         plan = route['plan']
-        if plan in res3['suscription_data']:
-            res3['suscription_data'][plan] += 1
+        if plan in res3['subscription_data']:
+            res3['subscription_data'][plan] += 1
         else:
-            res3['suscription_data'][plan] = 1
+            res3['subscription_data'][plan] = 1
 
+    res3['subscription_data'] = dict(sorted(res3['subscription_data'].items(),
+                                           key=lambda item: SubscriptionPlan.query.filter_by(name=item[0]).first().id))
+
+    print(res3['subscription_data'])
     return jsonify(res3)
