@@ -35,7 +35,6 @@ class TravelRoute(db.Model):
     subscription_plan = db.relationship('SubscriptionPlan', cascade='all, delete')
     destinations = db.relationship('Destination', secondary=travel_route_destination, back_populates='travel_routes',
                                    cascade='all, delete')
-    # user = db.relationship('User', back_populates='travel_routes')
 
 
 class Destination(db.Model):
@@ -61,7 +60,9 @@ def create_travel(subscription_plan_name, destination_names, comment, email=None
     if not subscription_plan:
         raise ValueError(f"Subscription plan '{subscription_plan_name}' does not exist.")
 
-    destinations = Destination.query.filter(Destination.name.in_(destination_names)).all()
+    destination_dict = {destination.name: destination for destination in
+                        Destination.query.filter(Destination.name.in_(destination_names)).all()}
+    destinations = [destination_dict[name] for name in destination_names if name in destination_dict]
 
     if len(destinations) != len(destination_names):
         missing_destinations = set(destination_names) - {d.name for d in destinations}
@@ -90,6 +91,7 @@ def create_travel(subscription_plan_name, destination_names, comment, email=None
     )
 
     db.session.add(travel_route)
+    db.session.commit()
 
     for order, destination in enumerate(destinations, start=1):
         stmt = travel_route_destination.update().where(

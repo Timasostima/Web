@@ -72,9 +72,9 @@ def query_routes(user_id):
         .join(travel_route_destination, TravelRoute.id == travel_route_destination.c.travel_route_id)
         .join(Destination, travel_route_destination.c.destination_id == Destination.id)
         .filter((TravelRoute.user_id == user_id) | (TravelRoute.guest_email == user.email))
+        .order_by(travel_route_destination.c.order)
         .all())
 
-    # print(res)
     return res
 
 

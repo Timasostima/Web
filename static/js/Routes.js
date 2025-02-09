@@ -1,6 +1,4 @@
 window.onload = function () {
-    console.log(`api/get_routes/${userId}`)
-    // JsBarcode("#barcode", "Hi!");
     fetch(`api/get_routes/${userId}`)
         .then(response => response.json())
         .then(routes => {
@@ -42,12 +40,11 @@ function createRouteCard(route) {
     let rightSide = document.createElement('div');
 
     destinations = route['destinations'];
-    console.log(destinations)
 
     startDest = destinations[0]
     endDest = destinations[destinations.length - 1]
     startImagePath = `../static/img/cities/${startDest.split(" ").join("_")}.jpg`
-    endImagePath = `../static/img/cities/${endDest}.jpg`
+    endImagePath = `../static/img/cities/${endDest.split(" ").join("_")}.jpg`
     rightSide.className = 'right_side';
     rightSide.innerHTML = `
         <div class="route_destination">

@@ -100,8 +100,8 @@ function resetForm() {
     let points = trajectory.getAttribute("points")
     points.replace(points, '')
     trajectory.setAttributeNS(null, "points", points)
-    destList = destinations.children
-    for (let i = 0; i < destList.length; i++) {
+    let destList = document.getElementById('destinations').children
+    for (let i = 1; i < destList.length; i++) {
         destList[i].remove()
     }
     travelForm.reset()
