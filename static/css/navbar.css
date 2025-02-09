@@ -193,6 +193,7 @@
     width: 100%;
     height: 100%;
     padding: 0 5dvw;
+    border-radius: 0;
 
     #logo {
       height: 17.77dvh;

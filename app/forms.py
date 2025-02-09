@@ -39,5 +39,5 @@ class UpdateForm(FlaskForm):
 
 class LoginForm(FlaskForm):
     email = EmailField(validators=[InputRequired(), Length(min=4, max=30), Email()], render_kw={"placeholder": "Email"})
-    password = PasswordField(validators=[InputRequired(), Length(min=8, max=20)], render_kw={"placeholder": "Password"})
+    password = PasswordField(validators=[InputRequired(), Length(min=6, max=20)], render_kw={"placeholder": "Password"})
     submit = SubmitField('Login')
