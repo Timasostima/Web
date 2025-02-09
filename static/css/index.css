@@ -328,11 +328,6 @@
         border-bottom: 1px solid var(--white);
       }
 
-      /*table th, table td {*/
-      /*  padding: 10px;*/
-      /*  text-align: center;*/
-      /*}*/
-
       tbody tr:hover {
         background-color: var(--orange);
       }
@@ -345,15 +340,15 @@
           padding: 10px 0;
 
           &:nth-child(2) {
-            background-color: rgba(225, 133, 40, 0.8);
+            background-color: var(--plan_standard);
           }
 
           &:nth-child(3) {
-            background-color: rgba(178, 13, 13, 0.8);
+            background-color: var(--plan_premium);
           }
 
           &:nth-child(4) {
-            background-color: rgba(24, 201, 154, 0.8);
+            background-color:  var(--plan_ultra);
           }
         }
 

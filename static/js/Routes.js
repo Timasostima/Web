@@ -12,7 +12,7 @@ window.onload = function () {
 
 function createRouteCard(route) {
     let card = document.createElement('div');
-    card.className = 'route_card';
+    card.className = `route_card ${route['plan'].toLowerCase()}`;
 
     let ref = document.createElement('h3');
     ref.className = 'ref';

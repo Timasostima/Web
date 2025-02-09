@@ -7,7 +7,6 @@
 }
 
 .route_card {
-  background-color: var(--brown);
   display: grid;
   grid-template-columns: 1fr 2fr 35px;
   position: relative;
@@ -15,6 +14,16 @@
   z-index: 1;
 
   transition: 0.5s, scale 0.3s, transform 0.3s;
+
+  &.standard {
+    background-color: var(--plan_standard_opaque);
+  }
+  &.premium {
+    background-color: var(--plan_premium_opaque);
+  }
+  &.ultra {
+    background-color: var(--plan_ultra_opaque);
+  }
 
   &:hover {
     scale: 1.01;
@@ -38,7 +47,14 @@
     z-index: -1;
   }
 
-  .ref:first-child {
+  h3 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+
+  .ref {
     position: absolute;
     top: 0;
     left: 0;
@@ -47,6 +63,8 @@
     width: fit-content;
     color: black;
     border-radius: 8px 0 8px 0;
+    font-size: 1.2rem;
+    font-weight: 500;
   }
 
   .id {
@@ -54,7 +72,6 @@
     padding: 0;
     transition: paddding 0.5s;
     border-radius: 0 8px 8px 0;
-
 
     img {
       height: 100%;
@@ -66,18 +83,13 @@
 .route_card:has(.id:hover) {
   grid-template-columns: 1fr 2fr 10%;
   transition: 0.5s;
-
-  .id {
-    /*padding: 0 5px;*/
-    /*transition: 0.5s;*/
-  }
 }
 
 .left_side {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  padding-top: 3rem;
+  padding-top: 2.8rem;
   padding-left: 1rem;
 }
 
@@ -94,7 +106,7 @@
   .route_destination {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
 
     img {
       display: block;
@@ -128,15 +140,8 @@ h2 {
   text-align: center;
 }
 
-
-/*img {*/
-/*  max-width: 100%;*/
-/*  max-height: 100%;*/
-/*}*/
-
 .coupontooltip {
   display: none;
-  /* NEW */
   background: rgba(2, 2, 2, 0.56);
   bottom: 85%;
   left: 85%;
@@ -145,5 +150,76 @@ h2 {
   z-index: 1000;
   max-width: 30dvw;
   width: 250px;
-  /*height: 100px;*/
+}
+
+@media (max-width: 700px) {
+  .route_container {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 1fr;
+  }
+
+  .route_card {
+    grid-template-columns: 1fr;
+    height: auto;
+
+    .ref {
+      width: 100%;
+      text-align: center;
+      border-radius: 8px 8px 0 0;
+    }
+
+    .id {
+      display: none;
+    }
+  }
+
+  .left_side {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+    text-align: center;
+
+    row-gap: 0.5rem;
+    padding-top: 3.2rem;
+    padding-bottom: 1rem;
+
+    > * {
+      min-width: 50%;
+    }
+  }
+
+  .right_side {
+    width: 100%;
+  }
+}
+
+@media (max-width: 500px) {
+  .route_card .right_side {
+    display: block;
+    max-height: 100%;
+    height: auto;
+    overflow: hidden;
+
+    > .route_destination {
+      display: block;
+      height: auto;
+    }
+
+    > .meta_info {
+      display: block;
+      width: fit-content;
+      margin: 1.5rem auto;
+
+      span {
+        display: none;
+      }
+
+      > img {
+        transform: rotate(90deg);
+        height: 4rem;
+      }
+    }
+  }
 }

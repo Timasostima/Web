@@ -8,6 +8,13 @@
   --btn-size: 65px;
   --navbar-top-height: 17.77vh;
   --navbar-bottom-height: 12vh;
+
+  --plan_standard: rgba(225, 133, 40, 0.8);
+  --plan_premium: rgba(178, 13, 13, 0.8);
+  --plan_ultra: rgba(24, 201, 154, 0.8);
+  --plan_standard_opaque: rgb(168, 99, 31);
+  --plan_premium_opaque: rgb(126, 10, 10);
+  --plan_ultra_opaque: rgb(15, 126, 97);
 }
 
 html {
