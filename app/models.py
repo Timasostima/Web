@@ -68,9 +68,6 @@ def create_travel(subscription_plan_name, destination_names, comment, email=None
         missing_destinations = set(destination_names) - {d.name for d in destinations}
         raise ValueError(f"Some destinations do not exist in the database: {missing_destinations}")
 
-    if not (email or user_id):
-        raise ValueError("Either an email for guests or a user_id for logged-in users must be provided.")
-
     plan_days_offset = {
         'Standard': 0,
         'Premium': 1,

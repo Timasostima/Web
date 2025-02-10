@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
 
+from flasgger import swag_from
 from flask import Blueprint, request, jsonify
 from flask_cors import cross_origin
 from flask_login import current_user
@@ -12,21 +13,94 @@ api_bp = Blueprint('api', __name__)
 
 
 @api_bp.route('/save_travel_route', methods=['POST'])
+@swag_from({
+    'tags': ['Travel Management'],
+    'summary': 'Save a Travel Route',
+    'description': 'Create a new travel route based on the provided subscription plan and destinations.',
+    'parameters': [
+        {
+            'name': 'body',
+            'in': 'body',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'subscription_plan': {'type': 'string'},
+                    'destinations': {'type': 'array', 'items': {'type': 'string'}},
+                    'comment_input': {'type': 'string'},
+                    'email_input': {'type': 'string'}
+                },
+                'required': ['subscription_plan', 'destinations']
+            }
+        }
+    ],
+    'responses': {
+        200: {'description': 'Successfully saved travel route'},
+        400: {'description': 'Bad request'},
+        401: {'description': 'Authentication required for this action'}
+    }
+})
 def save_travel_route():
     data = request.get_json()
 
     email = data.get('email_input')
-    if email:
-        create_travel(data['subscription_plan'], data['destinations'], data['comment_input'], email=email)
-    else:
-        create_travel(data['subscription_plan'], data['destinations'], data['comment_input'], user_id=current_user.id)
+
+    try:
+        if current_user.is_authenticated:
+            create_travel(data['subscription_plan'], data['destinations'], data['comment_input'],
+                          user_id=current_user.id)
+        elif email:
+            create_travel(data['subscription_plan'], data['destinations'], data['comment_input'], email=email)
+        else:
+            return jsonify({"error": "Authentication required for this action"}), 401
+
+    except Exception as e:
+        return jsonify(str(e)), 400
     return jsonify('ok'), 200
 
 
 @api_bp.route('/calculate_travel_route', methods=['GET'])
+@swag_from({
+    'tags': ['Travel Management'],
+    'summary': 'Calculate Travel Route Details',
+    'description': 'Get pricing and estimated delivery dates for various subscription plans based on destinations.',
+    'parameters': [
+        {
+            'name': 'destinations',
+            'in': 'query',
+            'type': 'string',
+            'required': True,
+            'description': 'Comma-separated list of destination names. Example: "Madrid,Barcelona,Valencia"'
+        }
+    ],
+    'responses': {
+        200: {
+            'description': 'Successful response with travel details',
+            'schema': {
+                'type': 'array',
+                'items': {
+                    'type': 'object',
+                    'properties': {
+                        'name': {'type': 'string', 'description': 'Name of the subscription plan'},
+                        'price': {'type': 'integer', 'description': 'Price of the subscription plan'},
+                        'estimated_date': {'type': 'string', 'description': 'Estimated delivery date'},
+                        'insurance_type': {'type': 'string', 'description': 'Type of insurance provided'},
+                        'tracking': {'type': 'string', 'description': 'Tracking details'}
+                    }
+                }
+            }
+        },
+        400: {'description': 'Invalid request'}
+    }
+})
 def calculate_travel_route():
     destinations = request.args.get('destinations')
+    if not destinations:
+        return jsonify({'error': 'Destinations parameter is required'}), 400
+
     destinations = destinations.split(',')
+    if len(destinations) < 2:
+        return jsonify({'error': 'At least 2 destinations are required'}), 400
+
     plans = SubscriptionPlan.query.order_by(SubscriptionPlan.price).all()
     response = []
     for i, plan in enumerate(plans):
@@ -43,10 +117,43 @@ def calculate_travel_route():
 
 
 @api_bp.route('/calculate_distance_price', methods=['GET'])
+@swag_from({
+    'tags': ['Pricing'],
+    'summary': 'Calculate Price and Distance',
+    'description': 'Calculate the total distance and pricing for a specific plan based on destinations.',
+    'parameters': [
+        {
+            'name': 'destinations',
+            'in': 'query',
+            'type': 'string',
+            'required': True,
+            'description': 'Comma-separated destination list'
+        },
+        {
+            'name': 'plan',
+            'in': 'query',
+            'type': 'string',
+            'required': True,
+            'description': 'Name of the subscription plan'
+        }
+    ],
+    'responses': {
+        200: {'description': 'Successful calculation of price and distance'},
+        400: {'description': 'Invalid request'}
+    }
+})
 def calculate_distance_price():
     destinations = request.args.get('destinations')
+    if not destinations:
+        return jsonify({'error': 'Destinations parameter is required'}), 400
+
     destinations = destinations.split(',')
+    if len(destinations) < 2:
+        return jsonify({'error': 'At least 2 destinations are required'}), 400
+
     plan_arg = request.args.get('plan')
+    if not plan_arg:
+        return jsonify({'error': 'Plan parameter is required'}), 400
     plan = SubscriptionPlan.query.filter_by(name=plan_arg).first()
 
     response = {
@@ -81,8 +188,47 @@ def query_routes(user_id):
 @cross_origin()
 @api_bp.route('/get_routes/<int:user_id>', methods=['GET'])
 @login_required
+@swag_from({
+    'tags': ['Route Management'],
+    'summary': 'Get all travel routes for a user',
+    'parameters': [
+        {
+            'name': 'user_id',
+            'in': 'path',
+            'type': 'integer',
+            'required': True,
+            'description': 'ID of the user'
+        }
+    ],
+    'responses': {
+        200: {
+            'description': 'List of routes for the user',
+            'schema': {
+                'type': 'array',
+                'items': {
+                    'type': 'object',
+                    'properties': {
+                        'id': {'type': 'integer'},
+                        'plan': {'type': 'string'},
+                        'date_of_start': {'type': 'string'},
+                        'date_of_end': {'type': 'string'},
+                        'price': {'type': 'number'},
+                        'distance': {'type': 'number'},
+                        'destinations': {'type': 'array', 'items': {'type': 'string'}}
+                    }
+                }
+            }
+        },
+        404: {
+            'description': 'No routes found for the user'
+        }
+    }
+})
 def get_routes(user_id):
     res = query_routes(user_id)
+
+    if not res:
+        return jsonify({'error': 'No routes found for the user'}), 404
 
     res2 = []
     for r in res:
@@ -108,8 +254,43 @@ def get_routes(user_id):
 
 
 @api_bp.route('/get_route_data/<int:user_id>', methods=['GET'])
+@login_required
+@swag_from({
+    'tags': ['Route Analytics'],
+    'summary': 'Get summarized route data for a user',
+    'parameters': [
+        {
+            'name': 'user_id',
+            'in': 'path',
+            'type': 'integer',
+            'required': True,
+            'description': 'ID of the user'
+        }
+    ],
+    'responses': {
+        200: {
+            'description': 'Summary of route data for the user',
+            'schema': {
+                'type': 'object',
+                'properties': {
+                    'total_routes': {'type': 'integer'},
+                    'in_progress': {'type': 'integer'},
+                    'total_distance': {'type': 'number'},
+                    'subscription_data': {
+                        'type': 'object',
+                        'additionalProperties': {'type': 'integer'}
+                    }
+                }
+            }
+        },
+        404: {'description': 'No routes found for the user'}
+    }
+})
 def get_route_data(user_id):
     res = query_routes(user_id)
+
+    if not res:
+        return jsonify({'error': 'No routes found for the user'}), 404
 
     res2 = []
     for r in res:
@@ -142,7 +323,7 @@ def get_route_data(user_id):
             res3['subscription_data'][plan] = 1
 
     res3['subscription_data'] = dict(sorted(res3['subscription_data'].items(),
-                                           key=lambda item: SubscriptionPlan.query.filter_by(name=item[0]).first().id))
+                                            key=lambda item: SubscriptionPlan.query.filter_by(name=item[0]).first().id))
 
     print(res3['subscription_data'])
     return jsonify(res3)

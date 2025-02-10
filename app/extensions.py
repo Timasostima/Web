@@ -1,3 +1,4 @@
+from flasgger import Swagger
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
@@ -5,6 +6,7 @@ from app.models import User
 
 bcrypt = Bcrypt()
 login_manager = LoginManager()
+swagger = Swagger()
 
 
 @login_manager.user_loader

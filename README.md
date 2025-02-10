@@ -19,6 +19,7 @@ My individual website project, where I developed both the frontend and backend. 
 - **Backend:**
   - Python
   - Flask
+  - Swagger
 
 - **Database & ORM:**
   - SQLite
@@ -51,3 +52,18 @@ My individual website project, where I developed both the frontend and backend. 
     ```bash
     flask run
     ```
+   
+## API Documentation
+
+This project uses **Flasgger** to generate Swagger API documentation.
+
+To view the API documentation, run the application and navigate to `/apidocs` in your browser.
+
+### Example:
+```bash
+flask run
+```
+Open your browser and navigate to
+```
+http://127.0.0.1:5000/apidocs
+```

@@ -2,7 +2,7 @@ from flask import Flask
 from flask_cors import CORS
 
 from app.api_endpoints import api_bp
-from app.extensions import bcrypt, login_manager
+from app.extensions import bcrypt, login_manager, swagger
 from app.models import db, Destination, SubscriptionPlan, User
 from app.mvc_endpoints import mvc_bp
 
@@ -16,6 +16,7 @@ def create_app(config_class='config.Config'):
     bcrypt.init_app(app)
     login_manager.init_app(app)
     login_manager.login_view = 'mvc.login'
+    swagger.init_app(app)
 
     app.register_blueprint(mvc_bp)
     app.register_blueprint(api_bp, url_prefix='/api')
