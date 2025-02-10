@@ -69,7 +69,7 @@ def save_travel_route():
             'in': 'query',
             'type': 'string',
             'required': True,
-            'description': 'Comma-separated list of destination names. Example: "Madrid,Barcelona,Valencia"'
+            'description': 'Comma-separated list of destination names. Example: Madrid,Barcelona,Valencia'
         }
     ],
     'responses': {
@@ -101,6 +101,10 @@ def calculate_travel_route():
     if len(destinations) < 2:
         return jsonify({'error': 'At least 2 destinations are required'}), 400
 
+    existing_destinations = [d.name for d in Destination.query.filter(Destination.name.in_(destinations)).all()]
+    if len(existing_destinations) != len(destinations):
+        return jsonify({'error': 'One or more destinations do not exist'}), 400
+
     plans = SubscriptionPlan.query.order_by(SubscriptionPlan.price).all()
     response = []
     for i, plan in enumerate(plans):
@@ -127,14 +131,14 @@ def calculate_travel_route():
             'in': 'query',
             'type': 'string',
             'required': True,
-            'description': 'Comma-separated destination list'
+            'description': 'Comma-separated list of destination names. Example: Madrid,Barcelona,Valencia'
         },
         {
             'name': 'plan',
             'in': 'query',
             'type': 'string',
             'required': True,
-            'description': 'Name of the subscription plan'
+            'description': 'Name of the subscription plan (Standard | Premium | Ultra)'
         }
     ],
     'responses': {
@@ -151,10 +155,16 @@ def calculate_distance_price():
     if len(destinations) < 2:
         return jsonify({'error': 'At least 2 destinations are required'}), 400
 
+    existing_destinations = [d.name for d in Destination.query.filter(Destination.name.in_(destinations)).all()]
+    if len(existing_destinations) != len(destinations):
+        return jsonify({'error': 'One or more destinations do not exist'}), 400
+
     plan_arg = request.args.get('plan')
     if not plan_arg:
         return jsonify({'error': 'Plan parameter is required'}), 400
     plan = SubscriptionPlan.query.filter_by(name=plan_arg).first()
+    if not plan:
+        return jsonify({'error': 'Plan not found'}), 400
 
     response = {
         'price': calc_price(destinations, plan.price),

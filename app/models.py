@@ -68,6 +68,13 @@ def create_travel(subscription_plan_name, destination_names, comment, email=None
         missing_destinations = set(destination_names) - {d.name for d in destinations}
         raise ValueError(f"Some destinations do not exist in the database: {missing_destinations}")
 
+    if len(destinations) < 2:
+        raise ValueError("At least two destinations are required.")
+
+    existing_destinations = [d.name for d in Destination.query.filter(Destination.name.in_([d.name for d in destinations])).all()]
+    if len(existing_destinations) != len(destinations):
+        raise ValueError('One or more destinations do not exist')
+
     plan_days_offset = {
         'Standard': 0,
         'Premium': 1,

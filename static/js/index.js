@@ -8,6 +8,35 @@ const totalSteps = steps.length;
 const btnNextCities = document.getElementById('submit-cities');
 const btnNextPrices = document.getElementById('submit-prices');
 
+window.onload = function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const destinations = urlParams.get('destinations');
+    const plan = urlParams.get('plan');
+
+    if (destinations) {
+        const selectedDestinations = destinations.split(',');
+        const destList = document.getElementById('destinations');
+        selectedDestinations.forEach(dest => {
+            const newElement = document.createElement('p');
+            newElement.innerHTML = dest;
+            newElement.setAttribute('draggable', true);
+            newElement.setAttribute('id', dest);
+            destList.appendChild(newElement);
+        });
+
+        if (plan) {
+            document.getElementById('subscription_plan').value = plan;
+            calculateTravelRoute(false);
+            calculateDistancePrice(false)
+            goToNthStep(2)
+        } else {
+            calculateTravelRoute()
+            goToNthStep(1)
+        }
+
+        dialogForm.showModal();
+    }
+}
 
 document.getElementById('calculate-shipment').addEventListener('click', () => {
     dialogForm.showModal();
@@ -24,28 +53,37 @@ function goToNextStep() {
     stepIndicators[currentStep].classList.add('active');
 }
 
-function goToFirstStep() {
+function goToNthStep(stepNumber) {
     steps[currentStep].classList.remove('active');
     stepIndicators[currentStep].classList.remove('active');
-    currentStep = 0;
+    currentStep = stepNumber;
     steps[currentStep].classList.add('active');
     stepIndicators[currentStep].classList.add('active');
 }
 
-btnNextCities.addEventListener('click', () => {
-    const prices = document.getElementById("part2")
-    const selectedDestinations = Array.from(destList).map(dest => dest.innerText);
+function calculateTravelRoute(updateUrl = true) {
+    const prices = document.getElementById("part2");
+    const selectedDestinations = Array.from(destList).slice(1).map(dest => dest.innerText);
     const params = new URLSearchParams({destinations: selectedDestinations.join(',')});
 
-    if (selectedDestinations.length < 3) {
+    if (selectedDestinations.length < 2) {
         alert("Please select at least two destinations.");
         return;
     }
 
+    if (updateUrl) {
+        const newUrl = `${window.location.pathname}?${params.toString()}`;
+        history.pushState({path: newUrl}, '', newUrl);
+    }
+
     fetch(`/api/calculate_travel_route?${params.toString()}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json()
+        })
         .then(data => {
-            console.log(data);
             const thead = prices.querySelector("thead");
             const tbody = prices.querySelector("tbody");
             thead.innerHTML = "";
@@ -77,52 +115,81 @@ btnNextCities.addEventListener('click', () => {
                 subscriptionSelect.appendChild(option);
             });
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error)
+            resetForm();
+            goToNthStep(0);
+        });
+}
+
+btnNextCities.addEventListener('click', () => {
+    calculateTravelRoute();
     goToNextStep();
 });
 
-btnNextPrices.addEventListener('click', () => {
-    const selectedDestinations = Array.from(destList).map(dest => dest.innerText);
-    const selectedPlan = document.getElementById("subscription_plan").value;
+function calculateDistancePrice(updateUrl = true) {
+    const urlParams = new URLSearchParams(window.location.search);
+    const selectedDestinations = urlParams.get('destinations').split(',');
+    const selectedPlan = document.getElementById("subscription_plan").value || urlParams.get('plan');
     const params = new URLSearchParams({destinations: selectedDestinations.join(','), plan: selectedPlan});
 
+    if (updateUrl) {
+        const newUrl = `${window.location.pathname}?${params.toString()}`;
+        history.pushState({path: newUrl}, '', newUrl);
+    }
+
     fetch(`/api/calculate_distance_price?${params.toString()}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
         .then(data => {
             document.getElementById("distance_form").textContent = `Total Distance: ${data.distance} km`;
             document.getElementById("price_form").textContent = `Total Price: ${data.price} €`;
         })
-        .catch(error => console.error('Error:', error));
+        .catch(error => {
+            console.error('Error:', error);
+            resetForm();
+            goToNthStep(0);
+        });
+}
+
+btnNextPrices.addEventListener('click', () => {
+    calculateDistancePrice()
     goToNextStep();
 });
 
 function resetForm() {
-    let points = trajectory.getAttribute("points")
-    points.replace(points, '')
-    trajectory.setAttributeNS(null, "points", points)
-    let destList = document.getElementById('destinations').children
-    for (let i = 1; i < destList.length; i++) {
-        destList[i].remove()
+    let points = trajectory.getAttribute('points');
+    points = '';
+    trajectory.setAttributeNS(null, "points", points);
+    let destList = document.getElementById('destinations');
+    while (destList.children.length > 1) {
+        destList.removeChild(destList.lastChild);
     }
-    travelForm.reset()
-    dialogForm.close()
+    travelForm.reset();
+    dialogForm.close();
+
+    const newUrl = window.location.pathname;
+    history.replaceState({}, '', newUrl);
+
+    areas.forEach(area => area.classList.remove('ac'));
 }
 
-travelForm.addEventListener('submit', (event) => {
-    event.preventDefault();
+function saveTravelRoute() {
+    const urlParams = new URLSearchParams(window.location.search);
 
-    let data = [];
-    for (let i = 1; i < destList.length; i++) {
-        data.push(destList[i].innerText);
-    }
+    let dests = urlParams.get('destinations').split(',');
 
-    let plan = document.getElementById('subscription_plan').value;
+    let plan = urlParams.get('plan')
     let email = document.getElementById('email_input');
     let comment = document.getElementById('comment_input').value;
     let points = trajectory.getAttribute('points');
 
     let payload = {
-        comment_input: comment, subscription_plan: plan, destinations: data, path: points,
+        comment_input: comment, subscription_plan: plan, destinations: dests, path: points,
     };
 
     if (email) {
@@ -131,16 +198,32 @@ travelForm.addEventListener('submit', (event) => {
 
 
     fetch('/api/save_travel_route', {
-        method: 'POST', headers: {
+        method: 'POST',
+        headers: {
             'Content-Type': 'application/json'
-        }, body: JSON.stringify(payload)
+        },
+        body: JSON.stringify(payload)
     })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            alert("Form submitted successfully!")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json()
         })
-        .catch(error => console.error('Error:', error));
+        .then(data => {
+            alert("Form submitted successfully!");
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            resetForm();
+            goToNthStep(0);
+        });
+}
+
+travelForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    saveTravelRoute()
 
     resetForm()
     goToNextStep()
@@ -150,7 +233,7 @@ dialogForm.addEventListener('cancel', (e) => {
     e.preventDefault();
     if (confirm("Are you sure you want to close the form? Unsaved changes will be lost.")) {
         resetForm();
-        goToFirstStep();
+        goToNthStep(0);
     }
 });
 
